@@ -1,0 +1,164 @@
+/**
+ * @file
+ * Form items and controls.
+ */
+
+.form-item,
+.form-actions {
+  margin-block: 0 var(--dbt-space-md);
+}
+
+.form-item label,
+.form-item .fieldset-legend,
+legend {
+  display: block;
+  margin-block-end: var(--dbt-space-xs);
+  font-weight: 600;
+}
+
+.form-item .option {
+  display: inline;
+  font-weight: 400;
+}
+
+.form-required::after {
+  content: "*";
+  margin-inline-start: 0.25em;
+  color: var(--dbt-color-error);
+}
+
+input:not([type="submit"], [type="button"], [type="reset"], [type="checkbox"], [type="radio"], [type="file"], [type="range"]),
+select,
+textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--dbt-control-height);
+  margin: 0;
+  padding: var(--dbt-space-sm);
+  border: 1px solid var(--dbt-color-text-muted);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-text);
+  font: inherit;
+  line-height: 1.3;
+}
+
+select {
+  width: auto;
+  padding-inline-end: var(--dbt-space-lg);
+  appearance: none;
+  background: var(--dbt-color-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%231b1b1b' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right var(--dbt-space-sm) center;
+}
+
+[dir="rtl"] select {
+  padding-inline-end: var(--dbt-space-lg);
+  background-position: left var(--dbt-space-sm) center;
+}
+
+select[multiple] {
+  background-image: none;
+  padding-inline-end: var(--dbt-space-sm);
+}
+
+textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin: 0 var(--dbt-space-xs) 0 0;
+  vertical-align: -0.2em;
+  accent-color: var(--dbt-color-primary);
+}
+
+[dir="rtl"] input[type="checkbox"],
+[dir="rtl"] input[type="radio"] {
+  margin: 0 0 0 var(--dbt-space-xs);
+}
+
+.form-type-checkbox,
+.form-type-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dbt-space-xs);
+  margin-block-end: var(--dbt-space-xs);
+}
+
+.form-type-checkbox label,
+.form-type-radio label {
+  margin: 0;
+  font-weight: 400;
+}
+
+.form-item .description,
+.details-description {
+  margin-block-start: var(--dbt-space-xs);
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.form-item--error input,
+.form-item--error select,
+.form-item--error textarea,
+.error {
+  border-color: var(--dbt-color-error);
+}
+
+.form-item--error-message {
+  margin-block: var(--dbt-space-xs);
+  color: var(--dbt-color-error);
+  font-size: var(--dbt-font-size-sm);
+}
+
+fieldset {
+  min-width: 0;
+  margin-block: 0 var(--dbt-space-md);
+  padding: var(--dbt-space-md);
+  border: 1px solid var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+}
+
+legend {
+  padding-inline: var(--dbt-space-xs);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dbt-space-sm);
+}
+
+/* Inline toolbar (Views exposed forms, container-inline). */
+.form--inline,
+.container-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--dbt-space-md);
+}
+
+.form--inline .form-item,
+.container-inline .form-item,
+.form--inline .form-actions,
+.container-inline .form-actions {
+  margin: 0;
+}
+
+.form--inline .form-type-textfield {
+  flex: 1 1 16rem;
+}
+
+.form--inline .form-type-textfield input {
+  width: 100%;
+}
+
+/* Password strength widget and other user-form helpers stay readable. */
+.password-strength,
+.password-confirm-message {
+  font-size: var(--dbt-font-size-sm);
+  color: var(--dbt-color-text-muted);
+}

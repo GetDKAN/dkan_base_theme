@@ -1,0 +1,37 @@
+/**
+ * @file
+ * Inline link lists, action links, more links.
+ */
+
+ul.inline,
+.links.inline,
+ul.action-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+  margin: 0 0 var(--dbt-space-md);
+  padding: 0;
+  list-style: none;
+}
+
+.action-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--dbt-control-height);
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border: 2px solid var(--dbt-color-primary);
+  border-radius: var(--dbt-radius);
+  color: var(--dbt-color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.action-links a:hover,
+.action-links a:focus {
+  background: var(--dbt-color-primary);
+  color: var(--dbt-color-primary-contrast);
+}
+
+.more-link {
+  text-align: end;
+}

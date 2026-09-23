@@ -1,0 +1,25 @@
+/**
+ * @file
+ * Details and summary.
+ */
+
+details {
+  margin-block: 0 var(--dbt-space-md);
+  border: 1px solid var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+}
+
+summary {
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+summary:hover {
+  background: var(--dbt-color-surface-alt);
+}
+
+.details-wrapper {
+  padding: var(--dbt-space-sm) var(--dbt-space-md) var(--dbt-space-md);
+  border-block-start: 1px solid var(--dbt-color-border);
+}

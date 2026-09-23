@@ -1,0 +1,80 @@
+/**
+ * @file
+ * Design tokens. Subthemes override these; nothing else needs to change.
+ *
+ * The --dcu-* block maps the dkan_catalog_ui module tokens onto the theme
+ * tokens so module components and theme chrome share one palette.
+ */
+
+:root {
+  /* Color. scripts/contrast.php checks the pairs used in the theme. */
+  --dbt-color-primary: #1a4480;
+  --dbt-color-primary-contrast: #ffffff;
+  --dbt-color-link: #005ea2;
+  --dbt-color-link-hover: #0b3d91;
+  --dbt-color-text: #1b1b1b;
+  --dbt-color-text-muted: #565c65;
+  --dbt-color-border: #dfe1e2;
+  --dbt-color-surface: #ffffff;
+  --dbt-color-surface-alt: #f0f0f0;
+  --dbt-color-success: #007a16;
+  --dbt-color-error: #b50909;
+  --dbt-color-warning: #ffbe2e;
+  --dbt-color-warning-text: #5c4400;
+  --dbt-color-focus: #2491ff;
+
+  /* Type. */
+  --dbt-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --dbt-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --dbt-font-size-sm: 0.875rem;
+  --dbt-font-size-base: 1rem;
+  --dbt-font-size-lg: 1.25rem;
+  --dbt-font-size-xl: 1.75rem;
+  --dbt-font-size-xxl: 2.25rem;
+  --dbt-line-height: 1.5;
+  --dbt-line-height-tight: 1.2;
+  /* Small uppercase labels: format badges, stat names, panel headings. */
+  --dbt-label-size: 0.75rem;
+  --dbt-label-tracking: 0.04em;
+
+  /* Space and shape. */
+  --dbt-space-xs: 0.25rem;
+  --dbt-space-sm: 0.5rem;
+  --dbt-space-md: 1rem;
+  --dbt-space-lg: 1.5rem;
+  --dbt-space-xl: 2.5rem;
+  --dbt-radius: 0.25rem;
+  --dbt-container-max: 75rem;
+  --dbt-sidebar-width: 18rem;
+  --dbt-control-height: 2.5rem;
+  --dbt-focus-ring: 0 0 0 3px var(--dbt-color-focus);
+
+  /* dkan_catalog_ui mapping. */
+  --dcu-color-text: var(--dbt-color-text);
+  --dcu-color-text-muted: var(--dbt-color-text-muted);
+  --dcu-color-link: var(--dbt-color-link);
+  --dcu-color-link-hover: var(--dbt-color-link-hover);
+  --dcu-color-primary: var(--dbt-color-primary);
+  --dcu-color-primary-contrast: var(--dbt-color-primary-contrast);
+  --dcu-color-surface: var(--dbt-color-surface);
+  --dcu-color-surface-alt: var(--dbt-color-surface-alt);
+  --dcu-color-border: var(--dbt-color-border);
+  --dcu-color-success: var(--dbt-color-success);
+  --dcu-color-warning: var(--dbt-color-warning);
+  --dcu-color-error: var(--dbt-color-error);
+  --dcu-font-family: var(--dbt-font-family);
+  --dcu-font-size-sm: var(--dbt-font-size-sm);
+  --dcu-font-size-md: var(--dbt-font-size-base);
+  --dcu-font-size-lg: var(--dbt-font-size-lg);
+  --dcu-font-size-xl: var(--dbt-font-size-xl);
+  --dcu-font-size-xxl: var(--dbt-font-size-xxl);
+  --dcu-line-height: var(--dbt-line-height);
+  --dcu-space-xs: var(--dbt-space-xs);
+  --dcu-space-sm: var(--dbt-space-sm);
+  --dcu-space-md: var(--dbt-space-md);
+  --dcu-space-lg: var(--dbt-space-lg);
+  --dcu-space-xl: var(--dbt-space-xl);
+  --dcu-radius: var(--dbt-radius);
+  --dcu-container-max: var(--dbt-container-max);
+  --dcu-sidebar-width: var(--dbt-sidebar-width);
+}

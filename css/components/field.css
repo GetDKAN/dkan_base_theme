@@ -1,0 +1,22 @@
+/**
+ * @file
+ * Entity field wrappers.
+ */
+
+.field {
+  margin-block: 0 var(--dbt-space-md);
+}
+
+.field__label {
+  font-weight: 600;
+}
+
+.field--label-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dbt-space-xs) var(--dbt-space-sm);
+}
+
+.field--label-inline .field__label::after {
+  content: ":";
+}

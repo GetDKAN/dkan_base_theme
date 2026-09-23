@@ -1,0 +1,49 @@
+/**
+ * @file
+ * Page container and main/sidebar layout.
+ */
+
+.dbt-container {
+  width: 100%;
+  max-width: var(--dbt-container-max);
+  margin-inline: auto;
+  padding-inline: var(--dbt-space-md);
+}
+
+.dbt-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dbt-main {
+  flex: 1 0 auto;
+  padding-block: var(--dbt-space-md) var(--dbt-space-xl);
+}
+
+.dbt-main:focus {
+  outline: none;
+}
+
+.dbt-main--sidebar {
+  display: grid;
+  gap: var(--dbt-space-xl);
+}
+
+@media (min-width: 64em) {
+  .dbt-main--sidebar {
+    grid-template-columns: minmax(0, 1fr) var(--dbt-sidebar-width);
+  }
+}
+
+.dbt-main__content {
+  min-width: 0;
+}
+
+.dbt-region-breadcrumb {
+  padding-block-start: var(--dbt-space-sm);
+}
+
+.dbt-region-highlighted {
+  padding-block-start: var(--dbt-space-md);
+}

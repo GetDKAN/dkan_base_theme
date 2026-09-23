@@ -1,0 +1,11 @@
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# Editors and OS
+.DS_Store
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*~

@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Account menu: each link gets the user icon (dkan_catalog_ui:icon).
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items (title, url, below, attributes,
+ *   is_expanded, is_collapsed, in_active_trail).
+ * - attributes: HTML attributes for the top-level list.
+ */
+#}
+{% import _self as menus %}
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('menu') }}>
+    {% else %}
+      <ul class="menu">
+    {% endif %}
+    {% for item in items %}
+      {%
+        set classes = [
+          'menu-item',
+          item.is_expanded ? 'menu-item--expanded',
+          item.is_collapsed ? 'menu-item--collapsed',
+          item.in_active_trail ? 'menu-item--active-trail',
+        ]
+      %}
+      {% set text %}{{ include('dkan_catalog_ui:icon', {name: 'user'}, with_context = false) }}{{ item.title }}{% endset %}
+      <li{{ item.attributes.addClass(classes) }}>
+        {{ link(text, item.url) }}
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

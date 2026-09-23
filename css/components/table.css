@@ -1,0 +1,66 @@
+/**
+ * @file
+ * Tables, including sort links from core/drupal.tablesort.
+ */
+
+table {
+  width: 100%;
+  margin-block: 0 var(--dbt-space-md);
+  border-collapse: collapse;
+  font-size: var(--dbt-font-size-sm);
+}
+
+caption {
+  padding-block-end: var(--dbt-space-xs);
+  text-align: start;
+  font-weight: 600;
+}
+
+th,
+td {
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-block-end: 1px solid var(--dbt-color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+thead th {
+  border-block-end: 2px solid var(--dbt-color-border);
+  background: var(--dbt-color-surface-alt);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+tbody tr:hover {
+  background: color-mix(in srgb, var(--dbt-color-surface-alt) 50%, var(--dbt-color-surface));
+}
+
+th.is-active,
+td.is-active {
+  background: var(--dbt-color-surface-alt);
+}
+
+th.is-active a {
+  color: var(--dbt-color-text);
+}
+
+th a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dbt-space-xs);
+  text-decoration: none;
+}
+
+th a:hover {
+  text-decoration: underline;
+}
+
+.tablesort {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+td.empty.message {
+  color: var(--dbt-color-text-muted);
+  text-align: center;
+}

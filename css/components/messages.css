@@ -1,0 +1,43 @@
+/**
+ * @file
+ * Status messages.
+ */
+
+.messages {
+  --_accent: var(--dbt-color-primary);
+  margin-block: 0 var(--dbt-space-md);
+  padding: var(--dbt-space-md);
+  border: 1px solid var(--dbt-color-border);
+  border-inline-start: 6px solid var(--_accent);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface-alt);
+  color: var(--dbt-color-text);
+  overflow-wrap: break-word;
+}
+
+.messages__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.messages__item + .messages__item {
+  margin-block-start: var(--dbt-space-sm);
+}
+
+.messages--status {
+  --_accent: var(--dbt-color-success);
+}
+
+.messages--warning {
+  --_accent: var(--dbt-color-warning);
+}
+
+.messages--error {
+  --_accent: var(--dbt-color-error);
+}
+
+.messages a {
+  color: inherit;
+  text-decoration: underline;
+}

@@ -1,0 +1,22 @@
+name: 'DKAN Base'
+type: theme
+'base theme': false
+description: 'Framework-free base theme for DKAN catalog sites. Subtheme it to add a design system.'
+package: DKAN
+core_version_requirement: ^10.4 || ^11
+generator: 'starterkit_theme:11.4.5'
+dependencies:
+  - dkan_catalog_ui:dkan_catalog_ui
+libraries:
+  - core/normalize
+  - dkan_base_theme/global
+regions:
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  highlighted: Highlighted
+  breadcrumb: Breadcrumb
+  content: Content
+  sidebar_first: 'First sidebar'
+  footer_menu: 'Footer menu'
+  footer: Footer

@@ -1,0 +1,42 @@
+/**
+ * @file
+ * Full and mini pagers.
+ */
+
+.pager__items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--dbt-space-xs);
+  margin: var(--dbt-space-lg) 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pager__item a,
+.pager__item--ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--dbt-control-height);
+  min-height: var(--dbt-control-height);
+  padding-inline: var(--dbt-space-sm);
+  border: 1px solid var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+  text-decoration: none;
+}
+
+.pager__item--ellipsis {
+  border-color: transparent;
+}
+
+.pager__item a:hover,
+.pager__item a:focus {
+  background: var(--dbt-color-surface-alt);
+}
+
+.pager__item.is-active a {
+  border-color: var(--dbt-color-primary);
+  background: var(--dbt-color-primary);
+  color: var(--dbt-color-primary-contrast);
+}

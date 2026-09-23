@@ -1,0 +1,41 @@
+/**
+ * @file
+ * Local tasks (primary and secondary tabs).
+ */
+
+ul.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dbt-space-xs);
+  margin: 0 0 var(--dbt-space-lg);
+  padding: 0;
+  list-style: none;
+  border-block-end: 2px solid var(--dbt-color-border);
+}
+
+.tabs a {
+  display: inline-block;
+  margin-block-end: -2px;
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-block-end: 2px solid transparent;
+  color: var(--dbt-color-text-muted);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tabs a:hover,
+.tabs a:focus {
+  color: var(--dbt-color-link-hover);
+  border-block-end-color: var(--dbt-color-border);
+}
+
+.tabs .is-active a,
+.tabs a.is-active {
+  color: var(--dbt-color-text);
+  border-block-end-color: var(--dbt-color-primary);
+}
+
+ul.tabs.secondary {
+  border-block-end: 0;
+  font-size: var(--dbt-font-size-sm);
+}

@@ -1,0 +1,51 @@
+/**
+ * @file
+ * Site footer: wordmark, footer menu, "Powered by DKAN", footer region.
+ */
+
+.dbt-footer {
+  margin-block-start: auto;
+  padding-block: var(--dbt-space-lg);
+  border-block-start: 1px solid var(--dbt-color-border);
+  background: var(--dbt-color-surface-alt);
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dbt-footer__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--dbt-space-sm) var(--dbt-space-lg);
+}
+
+.dbt-footer__brand img {
+  display: block;
+  height: 2rem;
+  width: auto;
+}
+
+.dbt-footer .menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dbt-space-xs) var(--dbt-space-md);
+}
+
+.dbt-footer__powered {
+  margin: 0;
+  justify-self: end;
+}
+
+.dbt-footer__content {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 47.99em) {
+  .dbt-footer__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .dbt-footer__powered {
+    justify-self: start;
+  }
+}

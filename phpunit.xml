@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Run from the site root inside ddev with Drupal's environment:
+    DRUPAL_ROOT=/var/www/html/docroot SIMPLETEST_BASE_URL=... SIMPLETEST_DB=... \
+      vendor/bin/phpunit -c docroot/themes/custom/dkan_base_theme
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="../../../core/tests/bootstrap.php"
+         colors="true"
+         failOnRisky="true">
+  <testsuites>
+    <testsuite name="kernel">
+      <directory>tests/src/Kernel</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

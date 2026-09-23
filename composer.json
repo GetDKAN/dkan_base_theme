@@ -1,0 +1,10 @@
+{
+    "name": "drupal/dkan_base_theme",
+    "description": "Framework-free base theme for DKAN catalog sites.",
+    "license": "GPL-2.0-or-later",
+    "type": "drupal-theme",
+    "homepage": "https://github.com/GetDKAN/dkan_base_theme",
+    "require": {
+        "drupal/dkan_catalog_ui": "*"
+    }
+}

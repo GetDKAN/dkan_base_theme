@@ -1,0 +1,92 @@
+/**
+ * @file
+ * Buttons. Core .button, form submits and the module's .dcu-button share tokens.
+ */
+
+.button,
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+.dcu-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dbt-space-xs);
+  min-height: var(--dbt-control-height);
+  margin: 0;
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border: 2px solid var(--dbt-color-primary);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-primary);
+  color: var(--dbt-color-primary-contrast);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:visited,
+.dcu-button:visited {
+  color: var(--dbt-color-primary-contrast);
+}
+
+.button--secondary:visited {
+  color: var(--dbt-color-primary);
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.dcu-button:hover,
+.button:focus,
+.dcu-button:focus {
+  background: var(--dbt-color-link-hover);
+  border-color: var(--dbt-color-link-hover);
+  color: var(--dbt-color-primary-contrast);
+}
+
+.button--secondary,
+.button--danger {
+  background: transparent;
+  color: var(--dbt-color-primary);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  background: var(--dbt-color-surface-alt);
+  color: var(--dbt-color-link-hover);
+}
+
+.button--danger {
+  border-color: var(--dbt-color-error);
+  color: var(--dbt-color-error);
+}
+
+.button--danger:hover,
+.button--danger:focus {
+  background: var(--dbt-color-error);
+  border-color: var(--dbt-color-error);
+}
+
+.button .dcu-icon,
+button .dcu-icon,
+.dcu-button .dcu-icon {
+  font-size: 1.125em;
+}
+
+.button--small {
+  min-height: 2rem;
+  padding-block: var(--dbt-space-xs);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.button:disabled,
+button:disabled,
+input[type="submit"]:disabled,
+.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

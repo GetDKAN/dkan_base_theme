@@ -1,0 +1,34 @@
+/**
+ * @file
+ * Menu lists. Header and footer placement lives in layout/header/footer CSS.
+ */
+
+.menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu .menu {
+  padding-inline-start: var(--dbt-space-md);
+}
+
+.menu-item {
+  margin: 0;
+}
+
+.menu-item a {
+  display: block;
+  padding-block: var(--dbt-space-xs);
+  text-decoration: none;
+}
+
+.menu-item a:hover,
+.menu-item a:focus {
+  text-decoration: underline;
+}
+
+.menu-item a.is-active,
+.menu-item--active-trail > a {
+  font-weight: 600;
+}

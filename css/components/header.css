@@ -1,0 +1,247 @@
+/**
+ * @file
+ * Site header: wordmark, primary menu, account menu, search.
+ *
+ * Under 64em: a row with the wordmark and a toggle, the search below, and a
+ * panel (primary then account links) that opens over the search row. From
+ * 64em: one row, wordmark | primary | account | search. The DOM order is the
+ * same at every width so keyboard order matches the visual order.
+ */
+
+.dbt-header {
+  --dbt-header-row: 3rem;
+
+  position: relative;
+  border-block-end: 1px solid var(--dbt-color-border);
+  background: var(--dbt-color-surface);
+}
+
+.dbt-header__inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+  padding-block: var(--dbt-space-sm);
+}
+
+/* Branding. */
+.dbt-header__branding .block {
+  display: flex;
+  align-items: center;
+  gap: var(--dbt-space-sm);
+  min-height: var(--dbt-header-row);
+}
+
+.site-logo img {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+}
+
+.site-name {
+  font-size: var(--dbt-font-size-lg);
+  font-weight: 700;
+}
+
+.site-name a {
+  color: var(--dbt-color-text);
+  text-decoration: none;
+}
+
+.site-slogan {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+/* Toggle: JS only. */
+.dbt-menu-toggle {
+  display: none;
+  grid-column: 2;
+  justify-self: end;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 2px solid var(--dbt-color-primary);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-primary);
+}
+
+.js .dbt-menu-toggle {
+  display: inline-flex;
+}
+
+.dbt-menu-toggle:hover,
+.dbt-menu-toggle:focus {
+  background: var(--dbt-color-surface-alt);
+  border-color: var(--dbt-color-link-hover);
+  color: var(--dbt-color-link-hover);
+}
+
+.dbt-menu-toggle .dcu-icon {
+  font-size: 1.375rem;
+}
+
+.dbt-menu-toggle[aria-expanded="true"] .dcu-icon--menu,
+.dbt-menu-toggle[aria-expanded="false"] .dcu-icon--close {
+  display: none;
+}
+
+/* Panel: primary then account links. Inline without JS; a sheet over the
+   search row when open with JS. */
+.dbt-header__panel {
+  grid-column: 1 / -1;
+}
+
+.js .dbt-header__panel:not(.is-open) {
+  display: none;
+}
+
+.js .dbt-header__panel.is-open {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(var(--dbt-header-row) + 2 * var(--dbt-space-sm));
+  z-index: 50;
+  padding: var(--dbt-space-sm) var(--dbt-space-md) var(--dbt-space-lg);
+  border-block-end: 1px solid var(--dbt-color-border);
+  background: var(--dbt-color-surface);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dbt-header__panel .menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.dbt-header__panel .menu-item a {
+  display: flex;
+  align-items: center;
+  gap: var(--dbt-space-xs);
+  padding: var(--dbt-space-sm) 0;
+  border-block-end: 1px solid var(--dbt-color-border);
+  color: var(--dbt-color-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dbt-header__panel .menu-item a:hover,
+.dbt-header__panel .menu-item a:focus {
+  color: var(--dbt-color-link-hover);
+}
+
+.dbt-header__primary .menu-item a.is-active,
+.dbt-header__primary .menu-item--active-trail > a {
+  padding-inline-start: var(--dbt-space-sm);
+  border-inline-start: 3px solid var(--dbt-color-primary);
+  color: var(--dbt-color-primary);
+}
+
+.dbt-header__secondary .menu-item a {
+  font-size: var(--dbt-font-size-sm);
+}
+
+/* Search. */
+.dbt-header__search {
+  grid-column: 1 / -1;
+}
+
+.dbt-header-search {
+  display: flex;
+}
+
+.dbt-header-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-inline-start: 2.25rem;
+  border: 1px solid var(--dbt-color-border);
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  background: var(--dbt-color-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E") no-repeat 0.625rem center;
+}
+
+[dir="rtl"] .dbt-header-search__input {
+  background-position: right 0.625rem center;
+}
+
+.dbt-header-search__submit {
+  width: 3rem;
+  padding: 0;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+
+.dbt-header-search__submit .dcu-icon {
+  font-size: 1.5rem;
+}
+
+/* One row. */
+@media (min-width: 64em) {
+  .dbt-header__inner {
+    grid-template-columns: auto 1fr auto auto;
+  }
+
+  .js .dbt-menu-toggle {
+    display: none;
+  }
+
+  .dbt-header__panel,
+  .js .dbt-header__panel:not(.is-open),
+  .js .dbt-header__panel.is-open {
+    display: contents;
+  }
+
+  /* The wordmark's letters sit low in its box; the links drop half a rem
+     so their text lines up with its x-height rather than its centre. */
+  .dbt-header__primary {
+    grid-column: 2;
+    margin-block-start: var(--dbt-space-sm);
+  }
+
+  .dbt-header__secondary {
+    grid-column: 3;
+    margin-block-start: var(--dbt-space-sm);
+  }
+
+  .dbt-header__search {
+    grid-column: 4;
+  }
+
+  .dbt-header__panel .menu {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--dbt-space-xs);
+  }
+
+  .dbt-header__panel .menu-item a {
+    padding: var(--dbt-space-sm) var(--dbt-space-md);
+    border: 0;
+    border-block-end: 3px solid transparent;
+    border-radius: var(--dbt-radius) var(--dbt-radius) 0 0;
+  }
+
+  .dbt-header__panel .menu-item a:hover,
+  .dbt-header__panel .menu-item a:focus {
+    background: var(--dbt-color-surface-alt);
+  }
+
+  .dbt-header__panel .menu-item a:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .dbt-header__primary .menu-item a.is-active,
+  .dbt-header__primary .menu-item--active-trail > a {
+    padding-inline-start: var(--dbt-space-md);
+    border-block-end-color: var(--dbt-color-primary);
+  }
+
+  .dbt-header__secondary .menu {
+    gap: var(--dbt-space-sm);
+  }
+
+  .dbt-header-search__input {
+    flex: none;
+    width: clamp(12rem, 20vw, 18rem);
+  }
+}

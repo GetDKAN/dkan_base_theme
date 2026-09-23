@@ -1,0 +1,171 @@
+/**
+ * @file
+ * Document defaults: box model, type, links, focus, prose.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--dbt-font-family);
+  font-size: 100%;
+  line-height: var(--dbt-line-height);
+  color: var(--dbt-color-text);
+  background: var(--dbt-color-surface);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: var(--dbt-font-size-base);
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: var(--dbt-space-lg) var(--dbt-space-sm);
+  font-weight: 700;
+  line-height: var(--dbt-line-height-tight);
+}
+
+h1,
+.page-title {
+  margin-block: 0 var(--dbt-space-xs);
+  font-size: var(--dbt-font-size-xxl);
+}
+
+h2 {
+  font-size: var(--dbt-font-size-xl);
+}
+
+h3 {
+  font-size: var(--dbt-font-size-lg);
+}
+
+h4,
+h5,
+h6 {
+  font-size: var(--dbt-font-size-base);
+}
+
+p,
+ul,
+ol,
+dl,
+pre,
+blockquote,
+figure {
+  margin-block: 0 var(--dbt-space-md);
+}
+
+ul,
+ol {
+  padding-inline-start: var(--dbt-space-lg);
+}
+
+dd {
+  margin-inline-start: 0;
+}
+
+a {
+  color: var(--dbt-color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--dbt-color-link-hover);
+}
+
+a:visited {
+  color: var(--dbt-color-link);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--dbt-font-family-mono);
+  font-size: 0.9375em;
+}
+
+pre {
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface-alt);
+  overflow-x: auto;
+}
+
+blockquote {
+  padding-inline-start: var(--dbt-space-md);
+  border-inline-start: 4px solid var(--dbt-color-border);
+  color: var(--dbt-color-text-muted);
+}
+
+hr {
+  height: 0;
+  margin-block: var(--dbt-space-lg);
+  border: 0;
+  border-block-start: 1px solid var(--dbt-color-border);
+}
+
+small {
+  font-size: var(--dbt-font-size-sm);
+}
+
+/* Focus: one visible ring everywhere. */
+:focus-visible {
+  outline: 3px solid var(--dbt-color-focus);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Centred above the header when focused. Core's focusable rules force
+   position: static on :focus-within, hence the !important overrides;
+   physical left + translate centre it in both directions. */
+.skip-link {
+  position: absolute;
+  top: var(--dbt-space-sm);
+  left: 50%;
+  z-index: 100;
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-primary);
+  color: var(--dbt-color-primary-contrast);
+  font-weight: 600;
+  transform: translateX(-50%);
+}
+
+.skip-link.visually-hidden.focusable:focus,
+.skip-link.visually-hidden.focusable:focus-within {
+  position: absolute !important;
+  transform: translateX(-50%) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

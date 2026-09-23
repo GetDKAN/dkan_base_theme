@@ -1,0 +1,36 @@
+global:
+  version: VERSION
+  css:
+    base:
+      css/tokens.css: {  }
+      css/base.css: {  }
+    layout:
+      css/layout.css: {  }
+    component:
+      css/components/button.css: {  }
+      css/components/form.css: {  }
+      css/components/table.css: {  }
+      css/components/pager.css: {  }
+      css/components/breadcrumb.css: {  }
+      css/components/messages.css: {  }
+      css/components/details.css: {  }
+      css/components/tabs.css: {  }
+      css/components/menu.css: {  }
+      css/components/links.css: {  }
+      css/components/field.css: {  }
+      css/components/header.css: {  }
+      css/components/footer.css: {  }
+  dependencies:
+    - dkan_base_theme/menu-toggle
+menu-toggle:
+  version: VERSION
+  js:
+    js/menu-toggle.js: { attributes: { defer: true } }
+  dependencies:
+    - core/drupal
+    - core/once
+catalog:
+  version: VERSION
+  css:
+    theme:
+      css/catalog.css: {  }

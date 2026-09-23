@@ -1,0 +1,94 @@
+{#
+/**
+ * @file
+ * Page layout: header, breadcrumb, highlighted, main with optional sidebar, footer.
+ *
+ * Theme variables (see dkan_base_theme_preprocess_page()):
+ * - dbt_search: header search form render array, or NULL when the
+ *   catalog_search_path setting is empty.
+ * - dbt_logo: site logo URL for the footer wordmark, or NULL.
+ */
+#}
+<div class="dbt-page">
+
+  {# Branding, toggle, panel (primary then account menus), search: the same
+     DOM order at every width, see css/components/header.css. #}
+  <header class="dbt-header">
+    <div class="dbt-container dbt-header__inner">
+      <div class="dbt-header__branding">
+        {{ page.header }}
+      </div>
+      {% if page.primary_menu or page.secondary_menu %}
+        <button class="dbt-menu-toggle" type="button" aria-expanded="false" aria-controls="dbt-header-panel" data-dbt-menu-toggle>
+          {{ include('dkan_catalog_ui:icon', {name: 'menu'}, with_context = false) }}
+          {{ include('dkan_catalog_ui:icon', {name: 'close'}, with_context = false) }}
+          <span class="visually-hidden">{{ 'Menu'|t }}</span>
+        </button>
+        <div id="dbt-header-panel" class="dbt-header__panel">
+          {% if page.primary_menu %}
+            <div class="dbt-header__primary">
+              {{ page.primary_menu }}
+            </div>
+          {% endif %}
+          {% if page.secondary_menu %}
+            <div class="dbt-header__secondary">
+              {{ page.secondary_menu }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if dbt_search %}
+        <div class="dbt-header__search">
+          {{ dbt_search }}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.breadcrumb %}
+    <div class="dbt-container dbt-region-breadcrumb">
+      {{ page.breadcrumb }}
+    </div>
+  {% endif %}
+
+  {% if page.highlighted %}
+    <div class="dbt-container dbt-region-highlighted">
+      {{ page.highlighted }}
+    </div>
+  {% endif %}
+
+  <main id="main-content" tabindex="-1" class="dbt-container dbt-main{{ page.sidebar_first ? ' dbt-main--sidebar' }}">
+    <div class="dbt-main__content">
+      {{ page.content }}
+    </div>
+    {% if page.sidebar_first %}
+      <aside class="dbt-main__sidebar">
+        {{ page.sidebar_first }}
+      </aside>
+    {% endif %}
+  </main>
+
+  <footer class="dbt-footer">
+    <div class="dbt-container dbt-footer__inner">
+      {% if dbt_logo %}
+        <a class="dbt-footer__brand" href="{{ path('<front>') }}" rel="home">
+          <img src="{{ dbt_logo }}" alt="{{ 'Home'|t }}" loading="lazy" />
+        </a>
+      {% endif %}
+      {% if page.footer_menu %}
+        <div class="dbt-footer__menu">
+          {{ page.footer_menu }}
+        </div>
+      {% endif %}
+      <p class="dbt-footer__powered">
+        {{ 'Powered by <a href=":url">DKAN</a>'|t({':url': 'https://getdkan.org'}) }}
+      </p>
+      {% if page.footer %}
+        <div class="dbt-footer__content">
+          {{ page.footer }}
+        </div>
+      {% endif %}
+    </div>
+  </footer>
+
+</div>

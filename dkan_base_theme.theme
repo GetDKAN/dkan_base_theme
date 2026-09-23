@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ * Theme hooks for DKAN Base.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for page templates.
+ */
+function dkan_base_theme_preprocess_page(array &$variables): void {
+  $variables['dbt_search'] = dkan_base_theme_header_search();
+  // The site logo (theme setting or logo.svg) for the footer wordmark.
+  $variables['dbt_logo'] = theme_get_setting('logo.url') ?: NULL;
+}
+
+/**
+ * Builds the header search form, or NULL when the setting is empty.
+ *
+ * A plain GET form so no core search module is needed; the `fulltext`
+ * parameter matches the dkan_catalog_ui search view's exposed filter.
+ */
+function dkan_base_theme_header_search(): ?array {
+  $path = trim((string) theme_get_setting('catalog_search_path', 'dkan_base_theme'));
+  if ($path === '') {
+    return NULL;
+  }
+  $url = Url::fromUserInput('/' . ltrim($path, '/'));
+  return [
+    '#type' => 'inline_template',
+    '#template' => '<form class="dbt-header-search" role="search" method="get" action="{{ action }}">'
+    . '<label class="visually-hidden" for="dbt-header-search">{{ "Search datasets"|t }}</label>'
+    . '<input id="dbt-header-search" class="dbt-header-search__input" type="search" name="fulltext" placeholder="{{ "Search datasets"|t }}">'
+    . '<button class="dbt-header-search__submit" type="submit">'
+    . '{{ include("dkan_catalog_ui:icon", {name: "search"}, with_context = false) }}'
+    . '<span class="visually-hidden">{{ "Search"|t }}</span></button>'
+    . '</form>',
+    '#context' => ['action' => $url->toString()],
+    '#cache' => ['tags' => ['config:dkan_base_theme.settings']],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for views-view templates.
+ */
+function dkan_base_theme_preprocess_views_view(array &$variables): void {
+  if ($variables['view']->id() === 'dkan_catalog_ui_search') {
+    $variables['#attached']['library'][] = 'dkan_base_theme/catalog';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ */
+function dkan_base_theme_preprocess_node(array &$variables): void {
+  $node = $variables['node'] ?? NULL;
+  if ($node instanceof NodeInterface
+    && $variables['view_mode'] === 'full'
+    && $node->bundle() === 'data'
+    && $node->hasField('field_data_type')
+    && $node->get('field_data_type')->value === 'dataset') {
+    $variables['#attached']['library'][] = 'dkan_base_theme/catalog';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the theme settings form.
+ */
+function dkan_base_theme_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state): void {
+  $form['dkan_base_theme'] = [
+    '#type' => 'details',
+    '#title' => t('DKAN Base'),
+    '#open' => TRUE,
+  ];
+  $form['dkan_base_theme']['catalog_search_path'] = [
+    '#type' => 'textfield',
+    '#title' => t('Catalog search path'),
+    '#description' => t('Path the header search form submits to, with the term in the <code>fulltext</code> parameter. Leave empty to hide the form.'),
+    '#default_value' => theme_get_setting('catalog_search_path', 'dkan_base_theme'),
+  ];
+}

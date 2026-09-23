@@ -1,0 +1,26 @@
+/**
+ * @file
+ * Breadcrumb trail.
+ */
+
+.breadcrumb {
+  font-size: var(--dbt-font-size-sm);
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: "/";
+  margin-inline: var(--dbt-space-sm);
+  color: var(--dbt-color-text-muted);
+}
+
+.breadcrumb li:last-child {
+  color: var(--dbt-color-text-muted);
+}

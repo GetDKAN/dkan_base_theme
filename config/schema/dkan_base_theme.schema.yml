@@ -1,0 +1,7 @@
+dkan_base_theme.settings:
+  type: theme_settings
+  label: 'DKAN Base settings'
+  mapping:
+    catalog_search_path:
+      type: string
+      label: 'Catalog search path for the header search form. Empty hides the form.'

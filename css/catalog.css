@@ -1,0 +1,822 @@
+/**
+ * @file
+ * Catalog page overrides for dkan_catalog_ui markup.
+ *
+ * Loaded in the "theme" category on /search and full dataset pages only, so
+ * it wins over the module's component CSS without extra specificity.
+ * Selectors styled here (.dcu-*, .dcu-table__*, .facet-item*)
+ * are the contract listed in README.md.
+ */
+
+/* Prose: about 70 characters a line. */
+.dcu-dataset-header__description,
+.dcu-card__description,
+.dcu-api-docs__intro {
+  max-width: 70ch;
+}
+
+/* Search page -------------------------------------------------------------- */
+
+/* One row: search input with an icon, sort, order, button. Labels are
+   for screen readers only. */
+.dcu-search__exposed form {
+  margin-block-end: var(--dbt-space-lg);
+  padding-block-end: var(--dbt-space-lg);
+  border-block-end: 1px solid var(--dbt-color-border);
+}
+
+.dcu-search__exposed .form-item-fulltext {
+  flex: 1 1 20rem;
+}
+
+.dcu-search__exposed .form-item-fulltext label,
+.dcu-search__exposed .form-item-sort-by label,
+.dcu-search__exposed .form-item-sort-order label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.dcu-search__exposed input[type="text"] {
+  padding-inline-start: 2.5rem;
+  border-color: var(--dbt-color-text-muted);
+  background: var(--dbt-color-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E") no-repeat 0.75rem center;
+}
+
+[dir="rtl"] .dcu-search__exposed input[type="text"] {
+  padding-inline-start: 2.5rem;
+  background-position: right 0.75rem center;
+}
+
+.dcu-search__exposed .form-item-sort-by,
+.dcu-search__exposed .form-item-sort-order {
+  flex: 0 0 auto;
+}
+
+.dcu-search__sidebar {
+  font-size: var(--dbt-font-size-base);
+}
+
+.dcu-facets__heading {
+  margin-block: 0 var(--dbt-space-sm);
+  font-size: var(--dbt-font-size-lg);
+}
+
+.dcu-facets__clear {
+  margin-block-end: var(--dbt-space-sm);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-facets__facet {
+  margin-block-end: var(--dbt-space-md);
+  padding-block-start: var(--dbt-space-md);
+  border-block-start: 1px solid var(--dbt-color-border);
+}
+
+.dcu-facets__facet-label {
+  margin-block: 0 var(--dbt-space-xs);
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-label-size);
+  font-weight: 600;
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
+}
+
+.dcu-facets__facet--long .facets-widget-checkbox {
+  padding-inline-end: var(--dbt-space-xs);
+  scrollbar-width: thin;
+}
+
+.facet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dbt-space-xs);
+  padding-block: var(--dbt-space-xs);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.facet-item input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin-block-start: 0.15em;
+}
+
+.facet-item label,
+.facet-item a {
+  display: inline;
+  margin: 0;
+  color: var(--dbt-color-text);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.facet-item a:hover .facet-item__value,
+.facet-item label:hover .facet-item__value {
+  text-decoration: underline;
+}
+
+.facet-item.is-active .facet-item__value {
+  font-weight: 600;
+}
+
+.facet-item__count {
+  color: var(--dbt-color-text-muted);
+}
+
+.dcu-search__summary {
+  margin-block-end: var(--dbt-space-sm);
+  padding-block-end: var(--dbt-space-sm);
+  border-block-end: 1px solid var(--dbt-color-border);
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+/* Facet blocks render their heading even with no items. */
+.dcu-facets__facet:not(:has(.facet-item)) {
+  display: none;
+}
+
+.dcu-search__main .view-empty {
+  padding-block: var(--dbt-space-md);
+  color: var(--dbt-color-text-muted);
+}
+
+.dcu-search__main .pager__items {
+  justify-content: flex-start;
+}
+
+/* Dataset cards. */
+.dcu-card {
+  padding-block: var(--dbt-space-lg);
+}
+
+.dcu-card:first-child {
+  padding-block-start: var(--dbt-space-sm);
+}
+
+.dcu-card__title {
+  margin-block: var(--dbt-space-xs) var(--dbt-space-sm);
+  font-size: var(--dbt-font-size-lg);
+  line-height: var(--dbt-line-height-tight);
+}
+
+.dcu-card__title a {
+  text-decoration: none;
+}
+
+.dcu-card__title a:hover,
+.dcu-card__title a:focus {
+  text-decoration: underline;
+}
+
+.dcu-card__format {
+  padding-block: 0.1em;
+  border: 1px solid var(--dbt-color-border);
+  font-size: var(--dbt-label-size);
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
+}
+
+.dcu-card__links {
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+}
+
+.dcu-card__links a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dcu-card__links a:hover,
+.dcu-card__links a:focus {
+  text-decoration: underline;
+}
+
+/* Dataset page ------------------------------------------------------------- */
+
+.dcu-dataset-header {
+  margin-block-end: var(--dbt-space-lg);
+  padding-block-end: var(--dbt-space-md);
+  border-block-end: 1px solid var(--dbt-color-border);
+}
+
+.dcu-dataset-header__updated {
+  margin-block: 0 var(--dbt-space-sm);
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-dataset-header__description > :last-child {
+  margin-block-end: 0;
+}
+
+.dcu-tabs {
+  margin-block-start: 0;
+}
+
+.dcu-tabs__list {
+  gap: 0;
+}
+
+.dcu-tabs__link {
+  margin-block-end: -2px;
+  padding: var(--dbt-space-sm) var(--dbt-space-lg);
+  border: 0;
+  border-block-end: 3px solid transparent;
+  border-radius: 0;
+  color: var(--dbt-color-text-muted);
+}
+
+.dcu-tabs__link:hover,
+.dcu-tabs__link:focus {
+  background: transparent;
+  border-block-end-color: var(--dbt-color-border);
+  color: var(--dbt-color-link-hover);
+}
+
+.dcu-tabs__link[aria-selected="true"] {
+  border-block-end-color: var(--dbt-color-primary);
+  color: var(--dbt-color-text);
+}
+
+.dcu-tabs__panel-heading {
+  font-size: var(--dbt-font-size-lg);
+}
+
+/* Resources. */
+.dcu-resource {
+  background: var(--dbt-color-surface);
+}
+
+.dcu-resource__format {
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-resource__stats dt {
+  font-size: var(--dbt-label-size);
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
+}
+
+/* Metadata and dictionary tables. */
+.dcu-metadata-table__table,
+.dcu-data-dictionary__table {
+  font-size: var(--dbt-font-size-base);
+}
+
+.dcu-metadata-table__table th {
+  width: 14rem;
+  color: var(--dbt-color-text-muted);
+  font-weight: 600;
+}
+
+.dcu-data-dictionary__table thead th {
+  border-block-end-width: 2px;
+}
+
+/* Wider than a phone: scroll the table, not the page. */
+.dcu-data-dictionary {
+  overflow-x: auto;
+}
+
+/* Data table (dkan_catalog_ui_preview). Component CSS ships the layout;
+   this restyles it on the theme tokens and adds popover / sheet panels. */
+.dcu-table {
+  margin-block: var(--dbt-space-md) 0;
+}
+
+.dcu-table__file,
+.dcu-table__tools,
+.dcu-table__status {
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+  margin-block-end: var(--dbt-space-md);
+}
+
+.dcu-table__chooser {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dbt-space-xs) var(--dbt-space-sm);
+}
+
+.dcu-table__chooser label,
+.dcu-table__file-label {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-label-size);
+  font-weight: 600;
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
+}
+
+.dcu-table__chooser select {
+  min-height: var(--dbt-control-height);
+}
+
+.dcu-table__summary {
+  margin: 0;
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+/* JS-only controls ship hidden; keep them hidden despite display rules. */
+.dcu-table [hidden] {
+  display: none !important;
+}
+
+/* Panel toggles and secondary buttons look alike: outlined. */
+.dcu-table__panel-summary,
+.dcu-table__fullscreen,
+.dcu-table__chooser button,
+.dcu-table__panel-body button:not(.dcu-button) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dbt-space-xs);
+  min-height: var(--dbt-control-height);
+  padding: var(--dbt-space-xs) var(--dbt-space-sm);
+  border: 2px solid var(--dbt-color-primary);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.dcu-table__panel-summary:hover,
+.dcu-table__fullscreen:hover,
+.dcu-table__chooser button:hover,
+.dcu-table__panel-body button:not(.dcu-button):hover,
+.dcu-table__panel[open] > .dcu-table__panel-summary,
+.dcu-table__fullscreen[aria-pressed="true"] {
+  background: var(--dbt-color-surface-alt);
+  color: var(--dbt-color-link-hover);
+}
+
+/* The theme styles <details> as a box; toolbar panels are bare so the
+   summary lines up with the buttons. */
+.dcu-table__panel {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.dcu-table__panel-summary .dcu-icon {
+  font-size: 1.125em;
+}
+
+.dcu-table__panel-chevron .dcu-icon {
+  font-size: 0.875em;
+}
+
+.dcu-table__fullscreen .dcu-icon {
+  font-size: 1.125em;
+}
+
+.dcu-table__panel-count {
+  font-weight: 400;
+}
+
+/* Popovers close on outside click and Escape; the button is for sheets.
+   Same specificity as the outlined-button rule above, which would
+   otherwise re-display it. */
+@media (min-width: 48em) {
+  .dcu-table__panel-body button.dcu-table__panel-close {
+    display: none;
+  }
+}
+
+.dcu-table__panel-heading {
+  margin-block: 0;
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-label-size);
+  font-weight: 600;
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
+}
+
+/* Reset actions read as links; the primary button stays first. */
+.dcu-table__panel-body button.dcu-table__link-button {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--dbt-color-link);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.dcu-table__panel-body button.dcu-table__link-button:hover {
+  background: none;
+  color: var(--dbt-color-link-hover);
+}
+
+.dcu-table__panel-body {
+  min-width: 24rem;
+  max-width: min(40rem, calc(100vw - 2 * var(--dbt-space-md)));
+  padding: var(--dbt-space-md);
+  border-color: var(--dbt-color-border);
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* The panels open from their toggle's end edge, which leaves the two
+   leading toggles' bodies hanging outside the content column. Anchor
+   those from the start instead; Display and Share sit far enough along
+   the row to stay inside. */
+.dcu-table__panel--filters .dcu-table__panel-body,
+.dcu-table__panel--columns .dcu-table__panel-body {
+  inset-inline: 0 auto;
+}
+
+.dcu-table__panel--filters .dcu-table__panel-body {
+  min-width: 36rem;
+  max-width: calc(100vw - 2 * var(--dbt-space-md));
+}
+
+.dcu-table__filter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 1.4fr) auto;
+  gap: var(--dbt-space-xs);
+  margin-block-end: var(--dbt-space-sm);
+}
+
+.dcu-table__filter-row select,
+.dcu-table__filter-row input {
+  min-width: 0;
+  min-height: 2.25rem;
+}
+
+.dcu-table__filter-row button {
+  min-height: 2.25rem;
+}
+
+/* One row per column: label grows and wraps, buttons stay on the right. */
+.dcu-table__column-item {
+  flex-wrap: nowrap;
+  gap: var(--dbt-space-sm);
+  padding-block: var(--dbt-space-xs);
+  border-block-end: 1px solid var(--dbt-color-border);
+}
+
+.dcu-table__column-item label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dcu-table__column-item button {
+  flex: none;
+  min-height: 1.75rem;
+  padding: 0 var(--dbt-space-xs);
+}
+
+/* Long lists scroll instead of growing past the viewport. */
+.dcu-table__column-list--long {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-inline-end: var(--dbt-space-xs);
+  scrollbar-width: thin;
+}
+
+.dcu-table__density {
+  margin-block-start: var(--dbt-space-md);
+  padding: 0;
+  border: 0;
+}
+
+.dcu-table__density label {
+  display: block;
+  margin-block: var(--dbt-space-xs);
+}
+
+.dcu-table__panel-actions {
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+  margin-block-start: var(--dbt-space-md);
+}
+
+.dcu-table__share {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--dbt-space-sm);
+}
+
+.dcu-table__copy-status {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-table__chips {
+  margin-block: 0;
+}
+
+.dcu-table__chip a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dbt-space-xs);
+  padding: 0.2em 0.75em;
+  border-color: var(--dbt-color-primary);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-primary);
+  font-size: var(--dbt-font-size-sm);
+  font-weight: 600;
+}
+
+.dcu-table__chip a:hover {
+  background: var(--dbt-color-surface-alt);
+}
+
+.dcu-table__chip--clear a {
+  border-color: transparent;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+/* Horizontal scrolling only: a vertical inner scroll traps the wheel and
+   the page cannot be scrolled past the table. Rows per page bounds height. */
+.dcu-table__wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+  -webkit-overflow-scrolling: touch;
+}
+
+.dcu-table__table {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dcu-table__caption {
+  margin: 0;
+  color: var(--dbt-color-text);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-table__table thead th {
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-block-end: 2px solid var(--dbt-color-border);
+  background: var(--dbt-color-surface-alt);
+  font-weight: 600;
+}
+
+.dcu-table__table thead th a {
+  text-decoration: none;
+}
+
+.dcu-table__table thead th a:hover,
+.dcu-table__table thead th a:focus {
+  text-decoration: underline;
+}
+
+.dcu-table__table th.dcu-table__cell--number,
+.dcu-table__table td.dcu-table__cell--number {
+  text-align: end;
+}
+
+/* Sorted column: keep the link colour, tint the cell, show the arrow. */
+.dcu-table__table thead th.is-active {
+  background: color-mix(in srgb, var(--dbt-color-surface-alt) 60%, var(--dbt-color-primary) 12%);
+}
+
+.dcu-table__table thead th.is-active a {
+  color: var(--dbt-color-link);
+}
+
+.dcu-table__table thead th .dcu-icon {
+  margin-inline-start: var(--dbt-space-xs);
+}
+
+.dcu-table__table tbody td {
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-block-end: 1px solid var(--dbt-color-border);
+  white-space: nowrap;
+}
+
+.dcu-table__table tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.dcu-table__table tbody tr:hover {
+  background: color-mix(in srgb, var(--dbt-color-surface-alt) 50%, var(--dbt-color-surface));
+}
+
+.dcu-table__message {
+  padding: var(--dbt-space-md);
+  border: 1px solid var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface-alt);
+  color: var(--dbt-color-text-muted);
+}
+
+.dcu-table__footer .pager__items {
+  margin-block: var(--dbt-space-md) 0;
+}
+
+.dcu-table__footer .pager__item a {
+  gap: var(--dbt-space-xs);
+}
+
+/* The theme's top margin on .dcu-table must not push the fixed panel;
+   the right padding keeps the toolbar clear of the (physically right)
+   close button. */
+.dcu-table--fullscreen {
+  margin: 0;
+  padding: var(--dbt-space-md) 3.5rem var(--dbt-space-md) var(--dbt-space-md);
+  background: var(--dbt-color-surface);
+}
+
+.dcu-table--fullscreen .dcu-table__wrapper {
+  max-height: calc(100vh - 12rem);
+  overflow: auto;
+}
+
+.dcu-table--fullscreen .dcu-table__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Close buttons (full screen, bottom sheets): one square style, sitting
+   at the top right inside the container's padding. */
+.dcu-table__close,
+.dcu-table__panel-body button.dcu-table__panel-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  min-height: 0;
+  padding: 0;
+  border: 2px solid var(--dbt-color-primary);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-primary);
+}
+
+.dcu-table__close {
+  top: var(--dbt-space-md);
+  right: var(--dbt-space-md);
+}
+
+.dcu-table__close:hover,
+.dcu-table__close:focus,
+.dcu-table__panel-body button.dcu-table__panel-close:hover,
+.dcu-table__panel-body button.dcu-table__panel-close:focus {
+  background: var(--dbt-color-surface-alt);
+  border-color: var(--dbt-color-link-hover);
+  color: var(--dbt-color-link-hover);
+}
+
+/* API reference. */
+.dcu-endpoint__summary {
+  align-items: center;
+}
+
+.dcu-endpoint__summary:hover {
+  background: var(--dbt-color-surface-alt);
+}
+
+.dcu-endpoint__method {
+  padding-block: 0.1em;
+  font-size: var(--dbt-label-size);
+  letter-spacing: var(--dbt-label-tracking);
+}
+
+.dcu-endpoint__path {
+  font-family: var(--dbt-font-family-mono);
+  font-size: var(--dbt-font-size-sm);
+  font-weight: 600;
+}
+
+.dcu-endpoint__body {
+  padding-block-start: var(--dbt-space-md);
+  overflow-x: auto;
+}
+
+.dcu-endpoint__params {
+  margin: 0;
+}
+
+.dcu-endpoint__params thead th {
+  border-block-end-width: 1px;
+}
+
+/* Narrow screens. */
+@media (max-width: 47.99em) {
+  .dcu-search__exposed .form-item-fulltext {
+    flex-basis: 100%;
+  }
+
+  /* Tabs scroll sideways instead of wrapping. */
+  .dcu-tabs__list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .dcu-tabs__link {
+    padding-inline: var(--dbt-space-md);
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .dcu-metadata-table__table th,
+  .dcu-metadata-table__table td {
+    display: block;
+    width: auto;
+  }
+
+  .dcu-metadata-table__table th {
+    padding-block-end: 0;
+    border: 0;
+  }
+
+  /* File row stacks (select, Show, Download); the tools become two
+     columns (Filters + Columns, Display + Share) with Full Screen
+     spanning both. */
+  .dcu-table__file {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dcu-table__tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+
+  .dcu-table__fullscreen {
+    grid-column: 1 / -1;
+  }
+
+  .dcu-table__chooser select {
+    flex: 1 1 100%;
+  }
+
+  .dcu-table__panel-summary,
+  .dcu-table__fullscreen {
+    padding-inline: var(--dbt-space-xs);
+    font-size: var(--dbt-font-size-sm);
+    white-space: nowrap;
+  }
+
+  .dcu-table__panel-summary,
+  .dcu-table__fullscreen,
+  .dcu-table__download {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Full width, so drop the margins that end-align them at wider sizes. */
+  .dcu-table__file .dcu-table__download,
+  .dcu-table__tools .dcu-table__fullscreen {
+    margin-inline-start: 0;
+  }
+
+  /* Panels become bottom sheets. */
+  .dcu-table__panel-body {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 100;
+    min-width: 0;
+    max-width: none;
+    max-height: 80vh;
+    overflow: auto;
+    margin: 0;
+    border-radius: var(--dbt-radius) var(--dbt-radius) 0 0;
+    box-shadow: 0 -0.25rem 1rem rgba(0, 0, 0, 0.2);
+  }
+
+  /* The desktop popover rules outrank the sheet; reset them. */
+  .dcu-table__panel--filters .dcu-table__panel-body,
+  .dcu-table__panel--columns .dcu-table__panel-body {
+    inset-inline: 0;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .dcu-table__filter-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .dcu-table__filter-row input {
+    grid-column: 1 / -1;
+  }
+
+  .dcu-endpoint__params {
+    min-width: 36rem;
+  }
+
+  /* Pager: icons only; the visually hidden labels remain. */
+  .dcu-table__footer .pager__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
