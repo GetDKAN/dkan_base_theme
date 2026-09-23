@@ -281,16 +281,37 @@
 }
 
 /* Data table (dkan_catalog_ui_preview). Component CSS ships the layout;
-   this restyles it on the theme tokens and adds popover / sheet panels. */
+   this restyles it on the theme tokens and adds popover / sheet panels.
+   The root is one workspace: file header, tools, status, table, footer. */
 .dcu-table {
+  --dcu-table-control-border: color-mix(in srgb, var(--dbt-color-text-muted) 65%, var(--dbt-color-border));
   margin-block: var(--dbt-space-md) 0;
+  border-color: var(--dbt-color-border);
+  border-radius: var(--dbt-radius);
+  background: var(--dbt-color-surface);
 }
 
 .dcu-table__file,
 .dcu-table__tools,
 .dcu-table__status {
   gap: var(--dbt-space-sm) var(--dbt-space-md);
-  margin-block-end: var(--dbt-space-md);
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-color: var(--dbt-color-border);
+}
+
+.dcu-table__file {
+  padding-block: var(--dbt-space-md);
+  border-radius: var(--dbt-radius) var(--dbt-radius) 0 0;
+}
+
+/* The tools row is the one tinted band; the rest stays on the surface. */
+.dcu-table__tools {
+  background: var(--dbt-color-surface-alt);
+}
+
+.dcu-table__meta {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
 }
 
 .dcu-table__chooser {
@@ -324,20 +345,22 @@
   display: none !important;
 }
 
-/* Panel toggles and secondary buttons look alike: outlined. */
+/* Secondary controls: quiet neutral outline, one height. Open and hover
+   states take the blue. */
 .dcu-table__panel-summary,
 .dcu-table__fullscreen,
 .dcu-table__chooser button,
+.dcu-table__page-size button,
 .dcu-table__panel-body button:not(.dcu-button) {
   display: inline-flex;
   align-items: center;
   gap: var(--dbt-space-xs);
   min-height: var(--dbt-control-height);
   padding: var(--dbt-space-xs) var(--dbt-space-sm);
-  border: 2px solid var(--dbt-color-primary);
+  border: 1px solid var(--dcu-table-control-border);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-primary);
+  color: var(--dbt-color-text);
   font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
@@ -346,11 +369,48 @@
 .dcu-table__panel-summary:hover,
 .dcu-table__fullscreen:hover,
 .dcu-table__chooser button:hover,
+.dcu-table__page-size button:hover,
 .dcu-table__panel-body button:not(.dcu-button):hover,
 .dcu-table__panel[open] > .dcu-table__panel-summary,
 .dcu-table__fullscreen[aria-pressed="true"] {
-  background: var(--dbt-color-surface-alt);
+  border-color: var(--dbt-color-primary);
+  background: var(--dbt-color-surface);
+  color: var(--dbt-color-primary);
+}
+
+.dcu-table__panel[open] > .dcu-table__panel-summary {
+  box-shadow: inset 0 -2px 0 var(--dbt-color-primary);
+}
+
+/* Download: the one filled control. */
+.dcu-table .dcu-table__download,
+.dcu-table .dcu-table__download:hover,
+.dcu-table__panel[open] > .dcu-table__download {
+  border-color: var(--dbt-color-primary);
+  background: var(--dbt-color-primary);
+  color: var(--dbt-color-primary-contrast);
+  box-shadow: none;
+}
+
+.dcu-table .dcu-table__download:hover {
+  border-color: var(--dbt-color-link-hover);
+  background: var(--dbt-color-link-hover);
+}
+
+/* Share view: a utility, not a tool. */
+.dcu-table__panel--share > .dcu-table__panel-summary {
+  border-color: transparent;
+  background: none;
+  color: var(--dbt-color-link);
+  font-weight: 400;
+}
+
+.dcu-table__panel--share > .dcu-table__panel-summary:hover,
+.dcu-table__panel--share[open] > .dcu-table__panel-summary {
+  border-color: transparent;
+  background: none;
   color: var(--dbt-color-link-hover);
+  text-decoration: underline;
 }
 
 /* The theme styles <details> as a box; toolbar panels are bare so the
@@ -362,7 +422,8 @@
   background: none;
 }
 
-.dcu-table__panel-summary .dcu-icon {
+.dcu-table__panel-summary .dcu-icon,
+.dcu-table__download .dcu-icon {
   font-size: 1.125em;
 }
 
@@ -421,12 +482,12 @@
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* The panels open from their toggle's end edge, which leaves the two
-   leading toggles' bodies hanging outside the content column. Anchor
-   those from the start instead; Display and Share sit far enough along
-   the row to stay inside. */
+/* The panels open from their toggle's end edge, which leaves the leading
+   toggles' bodies hanging outside the content column. Anchor those from
+   the start instead; Share and Download sit at the end of their rows. */
 .dcu-table__panel--filters .dcu-table__panel-body,
-.dcu-table__panel--columns .dcu-table__panel-body {
+.dcu-table__panel--columns .dcu-table__panel-body,
+.dcu-table__panel--display .dcu-table__panel-body {
   inset-inline: 0 auto;
 }
 
@@ -435,15 +496,27 @@
   max-width: calc(100vw - 2 * var(--dbt-space-md));
 }
 
+.dcu-table__panel--display .dcu-table__panel-body {
+  min-width: 16rem;
+}
+
 .dcu-table__filter-row {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 1.4fr) auto;
-  gap: var(--dbt-space-xs);
+  align-items: end;
+  gap: var(--dbt-space-xs) var(--dbt-space-sm);
   margin-block-end: var(--dbt-space-sm);
+}
+
+.dcu-table__field label {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+  font-weight: 600;
 }
 
 .dcu-table__filter-row select,
 .dcu-table__filter-row input {
+  width: 100%;
   min-width: 0;
   min-height: 2.25rem;
 }
@@ -481,7 +554,7 @@
 }
 
 .dcu-table__density {
-  margin-block-start: var(--dbt-space-md);
+  margin: 0 0 var(--dbt-space-md);
   padding: 0;
   border: 0;
 }
@@ -501,8 +574,77 @@
 .dcu-table__share {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: var(--dbt-space-sm);
+}
+
+.dcu-table__share > .dcu-table__panel-head {
+  margin-block-end: 0;
+}
+
+.dcu-table__share label {
+  font-size: var(--dbt-font-size-sm);
+  font-weight: 600;
+}
+
+.dcu-table__share-url {
+  min-height: 2.25rem;
+  font-family: var(--dbt-font-family-mono);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-table__share-note {
+  margin: 0;
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-table__share button {
+  align-self: flex-start;
+}
+
+/* Download choices. */
+.dcu-table__downloads {
+  min-width: 18rem;
+}
+
+.dcu-table__download-list li + li {
+  border-block-start: 1px solid var(--dbt-color-border);
+}
+
+.dcu-table__download-option {
+  border-radius: var(--dbt-radius);
+  text-decoration: none;
+}
+
+a.dcu-table__download-option:hover {
+  background: var(--dbt-color-surface-alt);
+}
+
+a.dcu-table__download-option .dcu-table__download-title {
+  color: var(--dbt-color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.dcu-table__download-note {
+  color: var(--dbt-color-text-muted);
+}
+
+/* Footer: rows per page, then the pager. */
+.dcu-table__footer {
+  gap: var(--dbt-space-sm) var(--dbt-space-md);
+  padding: var(--dbt-space-sm) var(--dbt-space-md);
+  border-radius: 0 0 var(--dbt-radius) var(--dbt-radius);
+}
+
+.dcu-table__page-size label {
+  color: var(--dbt-color-text-muted);
+  font-size: var(--dbt-font-size-sm);
+}
+
+.dcu-table__page-size select {
+  min-height: var(--dbt-control-height);
 }
 
 .dcu-table__copy-status {
@@ -540,8 +682,7 @@
    the page cannot be scrolled past the table. Rows per page bounds height. */
 .dcu-table__wrapper {
   overflow-x: auto;
-  border: 1px solid var(--dbt-color-border);
-  border-radius: var(--dbt-radius);
+  border-block: 1px solid var(--dbt-color-border);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -607,14 +748,12 @@
 
 .dcu-table__message {
   padding: var(--dbt-space-md);
-  border: 1px solid var(--dbt-color-border);
-  border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface-alt);
   color: var(--dbt-color-text-muted);
 }
 
 .dcu-table__footer .pager__items {
-  margin-block: var(--dbt-space-md) 0;
+  margin-block: 0;
 }
 
 .dcu-table__footer .pager__item a {
@@ -623,22 +762,13 @@
 
 /* The theme's top margin on .dcu-table must not push the fixed panel;
    the right padding keeps the toolbar clear of the (physically right)
-   close button. */
+   close button. Table height comes from the component's flex layout. */
 .dcu-table--fullscreen {
   margin: 0;
   padding: var(--dbt-space-md) 3.5rem var(--dbt-space-md) var(--dbt-space-md);
+  border: 0;
+  border-radius: 0;
   background: var(--dbt-color-surface);
-}
-
-.dcu-table--fullscreen .dcu-table__wrapper {
-  max-height: calc(100vh - 12rem);
-  overflow: auto;
-}
-
-.dcu-table--fullscreen .dcu-table__table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
 /* Close buttons (full screen, bottom sheets): one square style, sitting
@@ -734,46 +864,40 @@
     border: 0;
   }
 
-  /* File row stacks (select, Show, Download); the tools become two
-     columns (Filters + Columns, Display + Share) with Full Screen
-     spanning both. */
-  .dcu-table__file {
-    flex-direction: column;
-    align-items: stretch;
+  /* File info and Download wrap naturally. Tools wrap too: Filters and
+     Columns grow to share the first line, View and Share view follow.
+     Labels wrap rather than shrink. */
+  .dcu-table__chooser select {
+    flex: 1 1 100%;
+    min-width: 0;
   }
 
   .dcu-table__tools {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
+    column-gap: var(--dbt-space-sm);
   }
 
-  .dcu-table__fullscreen {
-    grid-column: 1 / -1;
+  .dcu-table__panel--filters,
+  .dcu-table__panel--columns {
+    flex: 1 1 7rem;
   }
 
-  .dcu-table__chooser select {
-    flex: 1 1 100%;
-  }
-
-  .dcu-table__panel-summary,
-  .dcu-table__fullscreen {
-    padding-inline: var(--dbt-space-xs);
-    font-size: var(--dbt-font-size-sm);
-    white-space: nowrap;
-  }
-
-  .dcu-table__panel-summary,
-  .dcu-table__fullscreen,
-  .dcu-table__download {
+  .dcu-table__panel--filters > .dcu-table__panel-summary,
+  .dcu-table__panel--columns > .dcu-table__panel-summary {
     justify-content: center;
     width: 100%;
   }
 
-  /* Full width, so drop the margins that end-align them at wider sizes. */
-  .dcu-table__file .dcu-table__download,
-  .dcu-table__tools .dcu-table__fullscreen {
-    margin-inline-start: 0;
+  .dcu-table__panel-summary,
+  .dcu-table__download,
+  .dcu-table__page-size button {
+    min-height: 2.75rem;
+  }
+
+  .dcu-table__file,
+  .dcu-table__tools,
+  .dcu-table__status,
+  .dcu-table__footer {
+    padding-inline: var(--dbt-space-sm);
   }
 
   /* Panels become bottom sheets. */
@@ -792,18 +916,23 @@
 
   /* The desktop popover rules outrank the sheet; reset them. */
   .dcu-table__panel--filters .dcu-table__panel-body,
-  .dcu-table__panel--columns .dcu-table__panel-body {
+  .dcu-table__panel--columns .dcu-table__panel-body,
+  .dcu-table__panel--display .dcu-table__panel-body {
     inset-inline: 0;
     min-width: 0;
     max-width: none;
   }
 
   .dcu-table__filter-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  .dcu-table__filter-row input {
+  .dcu-table__filter-row .dcu-table__field:nth-child(3) {
     grid-column: 1 / -1;
+  }
+
+  .dcu-table__filter-row > button {
+    justify-self: start;
   }
 
   .dcu-endpoint__params {
