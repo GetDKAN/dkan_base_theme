@@ -165,7 +165,9 @@
   background-position: right 0.625rem center;
 }
 
+/* Fixed width: the input, not the button, gives way when space is short. */
 .dbt-header-search__submit {
+  flex: none;
   width: 3rem;
   padding: 0;
   border-start-start-radius: 0;
@@ -240,8 +242,9 @@
     gap: var(--dbt-space-sm);
   }
 
-  .dbt-header-search__input {
-    flex: none;
-    width: clamp(12rem, 20vw, 18rem);
+  /* Size the form, not the input, so the grid track includes the 3rem
+     button. */
+  .dbt-header-search {
+    width: calc(clamp(12rem, 20vw, 18rem) + 3rem);
   }
 }
