@@ -81,17 +81,24 @@ class names upstream need matching changes here:
   `.dcu-dataset-header*`, `.dcu-tabs*`, `.dcu-resource*`,
   `.dcu-metadata-table*`, `.dcu-data-dictionary*`, `.dcu-endpoint*`,
   `.dcu-button`, `.dcu-icon` (inline SVG, sized by `font-size`).
-- `dkan_catalog_ui_preview`: `.dcu-table*` (three toolbar rows: `__file`
-  with `__chooser` or `__caption` / `__file-label` then `__download`,
-  `__tools` ending in Full Screen, `__status` with `__summary` and the
-  chips; `__panel` /
-  `__panel-body` popovers that become bottom sheets under 48em,
+- `dkan_catalog_ui_preview`: `.dcu-table*`, one bordered workspace
+  (requires the matching module markup; see its README). Toolbar rows:
+  `__file` (`__identity` with `__chooser` / `__caption` / `__file-label` /
+  `__meta`, then `__download`, the one filled control: a Download
+  disclosure with `__download-option` / `__download-original` /
+  `__download-results` (`.is-disabled` with zero matches), or a direct link
+  when only the original exists), `__tools` (tinted band; Filters, Columns,
+  View, then `__panel--share` as a quiet link at the end), `__status` with
+  `__summary` and the chips. `__footer` holds `__page-size` then the pager.
+  `__panel` / `__panel-body` popovers become bottom sheets under 48em;
   `__panel-head` / `__panel-heading` / `__panel-close` (JS-only, shown
-  under 48em), `__panel-chevron`, `__link-button`, `__button-label`,
-  `__column-list--long`, `__chip`, `__caption`, `__cell--number`,
-  `__wrapper` scrolling horizontally with a sticky header in
-  `--fullscreen` only, `--density-*`) and the core pager class names it
-  reuses (centred) plus `.pager__label` (hidden under 48em).
+  under 48em), `__panel-chevron`, `__field` (labelled filter controls),
+  `__link-button`, `__button-label`, `__column-list--long`, `__chip`,
+  `__cell--number`, `__wrapper` (horizontal scroll; in `--fullscreen` the
+  flex region that scrolls both ways, with a sticky header), `--density-*`,
+  and the core pager class names it reuses plus `.pager__label` (hidden
+  under 48em). Secondary controls use `--dcu-table-control-border`, a
+  token mix set on `.dcu-table`.
 - `facets`: `.facet-item`, `.facet-item__value`, `.facet-item__count`.
 - Core: Views exposed form (`.form--inline`, `.form-item-fulltext`), pager
   (`.pager__*`), local tasks (`ul.tabs`), status messages (`.messages*`).
