@@ -1,0 +1,40 @@
+# Coding standards, stylesheet lint and colour contrast. Kernel tests need
+# a DKAN site and are not run here yet.
+name: Lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      - run: composer global config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+      - run: composer global require drupal/coder:^8.3 --no-interaction
+      - run: ~/.composer/vendor/bin/phpcs --standard=phpcs.xml.dist .
+      - run: php scripts/contrast.php
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: theme
+      # Drupal core's eslint and stylelint configuration, as core CI applies it.
+      - run: git clone --depth 1 --branch 11.4.x https://git.drupalcode.org/project/drupal.git drupal
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: corepack enable
+      - run: cd drupal/core && yarn install --immutable
+      - run: |
+          cd drupal/core
+          yarn run eslint --no-eslintrc -c .eslintrc.json --resolve-plugins-relative-to . --rule 'strict: off' --max-warnings 1000 \
+            "$GITHUB_WORKSPACE/theme/js"
+      - run: cd drupal/core && yarn run stylelint --config .stylelintrc.json "$GITHUB_WORKSPACE/theme/**/*.css"
