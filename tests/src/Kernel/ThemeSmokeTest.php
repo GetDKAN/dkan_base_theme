@@ -30,14 +30,6 @@ class ThemeSmokeTest extends CatalogUiKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static function setUpBeforeClass(): void {
-    parent::setUpBeforeClass();
-    static::$modules = array_values(array_unique(array_merge(parent::$modules, static::$modules)));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   protected function setUp(): void {
     parent::setUp();
     $this->installSearchConfig();

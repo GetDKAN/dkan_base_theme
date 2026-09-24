@@ -4,14 +4,15 @@
  */
 
 .messages {
-  --_accent: var(--dbt-color-primary);
-  margin-block: 0 var(--dbt-space-md);
+  --dbt-message-accent: var(--dbt-color-primary);
+
   padding: var(--dbt-space-md);
+  color: var(--dbt-color-text);
   border: 1px solid var(--dbt-color-border);
-  border-inline-start: 6px solid var(--_accent);
+  border-inline-start: 6px solid var(--dbt-message-accent);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface-alt);
-  color: var(--dbt-color-text);
+  margin-block: 0 var(--dbt-space-md);
   overflow-wrap: break-word;
 }
 
@@ -26,18 +27,18 @@
 }
 
 .messages--status {
-  --_accent: var(--dbt-color-success);
+  --dbt-message-accent: var(--dbt-color-success);
 }
 
 .messages--warning {
-  --_accent: var(--dbt-color-warning);
+  --dbt-message-accent: var(--dbt-color-warning);
 }
 
 .messages--error {
-  --_accent: var(--dbt-color-error);
+  --dbt-message-accent: var(--dbt-color-error);
 }
 
 .messages a {
-  color: inherit;
   text-decoration: underline;
+  color: inherit;
 }

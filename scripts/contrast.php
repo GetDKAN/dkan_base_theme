@@ -7,7 +7,7 @@
  * Usage: php scripts/contrast.php [--min=4.5] [--tokens=path/to/tokens.css]
  * Text pairs must reach --min; non-text pairs (focus ring) 3:1. Exit 1 if
  * any pair fails. A subtheme passes its own tokens file, which must define
- * every --dbt-color-* it overrides in #rrggbb form.
+ * every --dbt-color-* it overrides as a hex colour (#rgb or #rrggbb).
  */
 
 $min = 4.5;
@@ -22,10 +22,11 @@ foreach ($argv as $arg) {
 }
 
 $css = file_get_contents($tokens);
-preg_match_all('/--dbt-color-([a-z-]+):\s*(#[0-9a-f]{6})/i', $css, $matches, PREG_SET_ORDER);
+preg_match_all('/--dbt-color-([a-z-]+):\s*#([0-9a-f]{3}|[0-9a-f]{6})\b/i', $css, $matches, PREG_SET_ORDER);
 $colors = [];
 foreach ($matches as $m) {
-  $colors[$m[1]] = $m[2];
+  $hex = strlen($m[2]) === 3 ? preg_replace('/(.)/', '$1$1', $m[2]) : $m[2];
+  $colors[$m[1]] = '#' . $hex;
 }
 
 // [foreground, background, where it is used, minimum ratio (default --min)].

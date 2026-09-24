@@ -5,11 +5,11 @@
 
 .dbt-footer {
   margin-block-start: auto;
-  padding-block: var(--dbt-space-lg);
+  color: var(--dbt-color-text-muted);
   border-block-start: 1px solid var(--dbt-color-border);
   background: var(--dbt-color-surface-alt);
-  color: var(--dbt-color-text-muted);
   font-size: var(--dbt-font-size-sm);
+  padding-block: var(--dbt-space-lg);
 }
 
 .dbt-footer__inner {
@@ -21,8 +21,8 @@
 
 .dbt-footer__brand img {
   display: block;
-  height: 2rem;
   width: auto;
+  height: 2rem;
 }
 
 .dbt-footer .menu {
@@ -32,8 +32,8 @@
 }
 
 .dbt-footer__powered {
-  margin: 0;
   justify-self: end;
+  margin: 0;
 }
 
 .dbt-footer__content {

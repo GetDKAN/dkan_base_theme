@@ -5,6 +5,7 @@
     "type": "drupal-theme",
     "homepage": "https://github.com/GetDKAN/dkan_base_theme",
     "require": {
+        "drupal/core": "^10.4 || ^11",
         "drupal/dkan_catalog_ui": "dev-main"
     }
 }

@@ -33,21 +33,22 @@
 .dcu-search__exposed .form-item-sort-by label,
 .dcu-search__exposed .form-item-sort-order label {
   position: absolute;
-  width: 1px;
-  height: 1px;
   overflow: hidden;
   clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
   white-space: nowrap;
 }
 
 .dcu-search__exposed input[type="text"] {
   padding-inline-start: 2.5rem;
   border-color: var(--dbt-color-text-muted);
-  background: var(--dbt-color-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E") no-repeat 0.75rem center;
+  background: var(--dbt-color-surface)
+    url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E")
+    no-repeat 0.75rem center;
 }
 
 [dir="rtl"] .dcu-search__exposed input[type="text"] {
-  padding-inline-start: 2.5rem;
   background-position: right 0.75rem center;
 }
 
@@ -77,12 +78,12 @@
 }
 
 .dcu-facets__facet-label {
-  margin-block: 0 var(--dbt-space-xs);
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
   color: var(--dbt-color-text-muted);
   font-size: var(--dbt-label-size);
   font-weight: 600;
-  letter-spacing: var(--dbt-label-tracking);
-  text-transform: uppercase;
+  margin-block: 0 var(--dbt-space-xs);
 }
 
 .dcu-facets__facet--long .facets-widget-checkbox {
@@ -107,9 +108,9 @@
 .facet-item a {
   display: inline;
   margin: 0;
+  text-decoration: none;
   color: var(--dbt-color-text);
   font-weight: 400;
-  text-decoration: none;
 }
 
 .facet-item a:hover .facet-item__value,
@@ -128,8 +129,8 @@
 .dcu-search__summary {
   margin-block-end: var(--dbt-space-sm);
   padding-block-end: var(--dbt-space-sm);
-  border-block-end: 1px solid var(--dbt-color-border);
   color: var(--dbt-color-text-muted);
+  border-block-end: 1px solid var(--dbt-color-border);
   font-size: var(--dbt-font-size-sm);
 }
 
@@ -167,16 +168,16 @@
 }
 
 .dcu-card__title a:hover,
-.dcu-card__title a:focus {
+.dcu-card__title a:focus-visible {
   text-decoration: underline;
 }
 
 .dcu-card__format {
-  padding-block: 0.1em;
-  border: 1px solid var(--dbt-color-border);
-  font-size: var(--dbt-label-size);
   letter-spacing: var(--dbt-label-tracking);
   text-transform: uppercase;
+  border: 1px solid var(--dbt-color-border);
+  font-size: var(--dbt-label-size);
+  padding-block: 0.1em;
 }
 
 .dcu-card__links {
@@ -184,12 +185,12 @@
 }
 
 .dcu-card__links a {
-  font-weight: 600;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .dcu-card__links a:hover,
-.dcu-card__links a:focus {
+.dcu-card__links a:focus-visible {
   text-decoration: underline;
 }
 
@@ -222,22 +223,22 @@
 .dcu-tabs__link {
   margin-block-end: -2px;
   padding: var(--dbt-space-sm) var(--dbt-space-lg);
+  color: var(--dbt-color-text-muted);
   border: 0;
   border-block-end: 3px solid transparent;
   border-radius: 0;
-  color: var(--dbt-color-text-muted);
 }
 
 .dcu-tabs__link:hover,
-.dcu-tabs__link:focus {
-  background: transparent;
-  border-block-end-color: var(--dbt-color-border);
+.dcu-tabs__link:focus-visible {
   color: var(--dbt-color-link-hover);
+  border-block-end-color: var(--dbt-color-border);
+  background: transparent;
 }
 
 .dcu-tabs__link[aria-selected="true"] {
-  border-block-end-color: var(--dbt-color-primary);
   color: var(--dbt-color-text);
+  border-block-end-color: var(--dbt-color-primary);
 }
 
 .dcu-tabs__panel-heading {
@@ -254,9 +255,9 @@
 }
 
 .dcu-resource__stats dt {
-  font-size: var(--dbt-label-size);
   letter-spacing: var(--dbt-label-tracking);
   text-transform: uppercase;
+  font-size: var(--dbt-label-size);
 }
 
 /* Metadata and dictionary tables. */
@@ -284,7 +285,12 @@
    this restyles it on the theme tokens and adds popover / sheet panels.
    The root is one workspace: file header, tools, status, table, footer. */
 .dcu-table {
-  --dcu-table-control-border: color-mix(in srgb, var(--dbt-color-text-muted) 65%, var(--dbt-color-border));
+  --dcu-table-control-border: color-mix(
+    in sRGB,
+    var(--dbt-color-text-muted) 65%,
+    var(--dbt-color-border)
+  );
+
   margin-block: var(--dbt-space-md) 0;
   border-color: var(--dbt-color-border);
   border-radius: var(--dbt-radius);
@@ -323,11 +329,11 @@
 
 .dcu-table__chooser label,
 .dcu-table__file-label {
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
   color: var(--dbt-color-text-muted);
   font-size: var(--dbt-label-size);
   font-weight: 600;
-  letter-spacing: var(--dbt-label-tracking);
-  text-transform: uppercase;
 }
 
 .dcu-table__chooser select {
@@ -354,16 +360,16 @@
 .dcu-table__panel-body button:not(.dcu-button) {
   display: inline-flex;
   align-items: center;
-  gap: var(--dbt-space-xs);
   min-height: var(--dbt-control-height);
   padding: var(--dbt-space-xs) var(--dbt-space-sm);
+  cursor: pointer;
+  color: var(--dbt-color-text);
   border: 1px solid var(--dcu-table-control-border);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-text);
   font-weight: 600;
   line-height: 1.2;
-  cursor: pointer;
+  gap: var(--dbt-space-xs);
 }
 
 .dcu-table__panel-summary:hover,
@@ -373,9 +379,9 @@
 .dcu-table__panel-body button:not(.dcu-button):hover,
 .dcu-table__panel[open] > .dcu-table__panel-summary,
 .dcu-table__fullscreen[aria-pressed="true"] {
+  color: var(--dbt-color-primary);
   border-color: var(--dbt-color-primary);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-primary);
 }
 
 .dcu-table__panel[open] > .dcu-table__panel-summary {
@@ -386,9 +392,9 @@
 .dcu-table .dcu-table__download,
 .dcu-table .dcu-table__download:hover,
 .dcu-table__panel[open] > .dcu-table__download {
+  color: var(--dbt-color-primary-contrast);
   border-color: var(--dbt-color-primary);
   background: var(--dbt-color-primary);
-  color: var(--dbt-color-primary-contrast);
   box-shadow: none;
 }
 
@@ -399,18 +405,18 @@
 
 /* Share view: a utility, not a tool. */
 .dcu-table__panel--share > .dcu-table__panel-summary {
+  color: var(--dbt-color-link);
   border-color: transparent;
   background: none;
-  color: var(--dbt-color-link);
   font-weight: 400;
 }
 
 .dcu-table__panel--share > .dcu-table__panel-summary:hover,
 .dcu-table__panel--share[open] > .dcu-table__panel-summary {
+  text-decoration: underline;
+  color: var(--dbt-color-link-hover);
   border-color: transparent;
   background: none;
-  color: var(--dbt-color-link-hover);
-  text-decoration: underline;
 }
 
 /* The theme styles <details> as a box; toolbar panels are bare so the
@@ -449,29 +455,29 @@
 }
 
 .dcu-table__panel-heading {
-  margin-block: 0;
+  letter-spacing: var(--dbt-label-tracking);
+  text-transform: uppercase;
   color: var(--dbt-color-text-muted);
   font-size: var(--dbt-label-size);
   font-weight: 600;
-  letter-spacing: var(--dbt-label-tracking);
-  text-transform: uppercase;
+  margin-block: 0;
 }
 
 /* Reset actions read as links; the primary button stays first. */
 .dcu-table__panel-body button.dcu-table__link-button {
   min-height: 0;
   padding: 0;
+  text-decoration: underline;
+  color: var(--dbt-color-link);
   border: 0;
   background: none;
-  color: var(--dbt-color-link);
   font-weight: 400;
-  text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
 .dcu-table__panel-body button.dcu-table__link-button:hover {
-  background: none;
   color: var(--dbt-color-link-hover);
+  background: none;
 }
 
 .dcu-table__panel-body {
@@ -479,7 +485,7 @@
   max-width: min(40rem, calc(100vw - 2 * var(--dbt-space-md)));
   padding: var(--dbt-space-md);
   border-color: var(--dbt-color-border);
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 1rem rgb(0, 0, 0, 0.15);
 }
 
 /* The panels open from their toggle's end edge, which leaves the leading
@@ -547,8 +553,8 @@
 
 /* Long lists scroll instead of growing past the viewport. */
 .dcu-table__column-list--long {
-  max-height: 50vh;
   overflow-y: auto;
+  max-height: 50vh;
   padding-inline-end: var(--dbt-space-xs);
   scrollbar-width: thin;
 }
@@ -613,8 +619,8 @@
 }
 
 .dcu-table__download-option {
-  border-radius: var(--dbt-radius);
   text-decoration: none;
+  border-radius: var(--dbt-radius);
 }
 
 a.dcu-table__download-option:hover {
@@ -622,8 +628,8 @@ a.dcu-table__download-option:hover {
 }
 
 a.dcu-table__download-option .dcu-table__download-title {
-  color: var(--dbt-color-link);
   text-decoration: underline;
+  color: var(--dbt-color-link);
   text-underline-offset: 0.15em;
 }
 
@@ -659,13 +665,13 @@ a.dcu-table__download-option .dcu-table__download-title {
 .dcu-table__chip a {
   display: inline-flex;
   align-items: center;
-  gap: var(--dbt-space-xs);
   padding: 0.2em 0.75em;
+  color: var(--dbt-color-primary);
   border-color: var(--dbt-color-primary);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-primary);
   font-size: var(--dbt-font-size-sm);
   font-weight: 600;
+  gap: var(--dbt-space-xs);
 }
 
 .dcu-table__chip a:hover {
@@ -673,9 +679,9 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-table__chip--clear a {
+  text-decoration: underline;
   border-color: transparent;
   font-weight: 400;
-  text-decoration: underline;
 }
 
 /* Horizontal scrolling only: a vertical inner scroll traps the wheel and
@@ -683,7 +689,6 @@ a.dcu-table__download-option .dcu-table__download-title {
 .dcu-table__wrapper {
   overflow-x: auto;
   border-block: 1px solid var(--dbt-color-border);
-  -webkit-overflow-scrolling: touch;
 }
 
 .dcu-table__table {
@@ -710,7 +715,7 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-table__table thead th a:hover,
-.dcu-table__table thead th a:focus {
+.dcu-table__table thead th a:focus-visible {
   text-decoration: underline;
 }
 
@@ -721,7 +726,11 @@ a.dcu-table__download-option .dcu-table__download-title {
 
 /* Sorted column: keep the link colour, tint the cell, show the arrow. */
 .dcu-table__table thead th.is-active {
-  background: color-mix(in srgb, var(--dbt-color-surface-alt) 60%, var(--dbt-color-primary) 12%);
+  background: color-mix(
+    in sRGB,
+    var(--dbt-color-surface-alt) 60%,
+    var(--dbt-color-primary) 12%
+  );
 }
 
 .dcu-table__table thead th.is-active a {
@@ -734,8 +743,8 @@ a.dcu-table__download-option .dcu-table__download-title {
 
 .dcu-table__table tbody td {
   padding: var(--dbt-space-sm) var(--dbt-space-md);
-  border-block-end: 1px solid var(--dbt-color-border);
   white-space: nowrap;
+  border-block-end: 1px solid var(--dbt-color-border);
 }
 
 .dcu-table__table tbody tr:last-child td {
@@ -743,13 +752,17 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-table__table tbody tr:hover {
-  background: color-mix(in srgb, var(--dbt-color-surface-alt) 50%, var(--dbt-color-surface));
+  background: color-mix(
+    in sRGB,
+    var(--dbt-color-surface-alt) 50%,
+    var(--dbt-color-surface)
+  );
 }
 
 .dcu-table__message {
   padding: var(--dbt-space-md);
-  background: var(--dbt-color-surface-alt);
   color: var(--dbt-color-text-muted);
+  background: var(--dbt-color-surface-alt);
 }
 
 .dcu-table__footer .pager__items {
@@ -779,10 +792,10 @@ a.dcu-table__download-option .dcu-table__download-title {
   height: 2.25rem;
   min-height: 0;
   padding: 0;
+  color: var(--dbt-color-primary);
   border: 2px solid var(--dbt-color-primary);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-primary);
 }
 
 .dcu-table__close {
@@ -791,12 +804,12 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-table__close:hover,
-.dcu-table__close:focus,
+.dcu-table__close:focus-visible,
 .dcu-table__panel-body button.dcu-table__panel-close:hover,
-.dcu-table__panel-body button.dcu-table__panel-close:focus {
-  background: var(--dbt-color-surface-alt);
-  border-color: var(--dbt-color-link-hover);
+.dcu-table__panel-body button.dcu-table__panel-close:focus-visible {
   color: var(--dbt-color-link-hover);
+  border-color: var(--dbt-color-link-hover);
+  background: var(--dbt-color-surface-alt);
 }
 
 /* API reference. */
@@ -809,9 +822,9 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-endpoint__method {
-  padding-block: 0.1em;
-  font-size: var(--dbt-label-size);
   letter-spacing: var(--dbt-label-tracking);
+  font-size: var(--dbt-label-size);
+  padding-block: 0.1em;
 }
 
 .dcu-endpoint__path {
@@ -821,8 +834,8 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 .dcu-endpoint__body {
-  padding-block-start: var(--dbt-space-md);
   overflow-x: auto;
+  padding-block-start: var(--dbt-space-md);
 }
 
 .dcu-endpoint__params {
@@ -841,8 +854,8 @@ a.dcu-table__download-option .dcu-table__download-title {
 
   /* Tabs scroll sideways instead of wrapping. */
   .dcu-tabs__list {
-    flex-wrap: nowrap;
     overflow-x: auto;
+    flex-wrap: nowrap;
     scroll-snap-type: x proximity;
     scrollbar-width: thin;
   }
@@ -903,15 +916,15 @@ a.dcu-table__download-option .dcu-table__download-title {
   /* Panels become bottom sheets. */
   .dcu-table__panel-body {
     position: fixed;
-    inset: auto 0 0 0;
     z-index: 100;
+    overflow: auto;
     min-width: 0;
     max-width: none;
     max-height: 80vh;
-    overflow: auto;
     margin: 0;
     border-radius: var(--dbt-radius) var(--dbt-radius) 0 0;
-    box-shadow: 0 -0.25rem 1rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -0.25rem 1rem rgb(0, 0, 0, 0.2);
+    inset: auto 0 0 0;
   }
 
   /* The desktop popover rules outrank the sheet; reset them. */
@@ -942,10 +955,10 @@ a.dcu-table__download-option .dcu-table__download-title {
   /* Pager: icons only; the visually hidden labels remain. */
   .dcu-table__footer .pager__label {
     position: absolute;
-    width: 1px;
-    height: 1px;
     overflow: hidden;
     clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
     white-space: nowrap;
   }
 }

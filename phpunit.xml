@@ -10,6 +10,9 @@
          colors="true"
          failOnRisky="true">
   <testsuites>
+    <testsuite name="unit">
+      <directory>tests/src/Unit</directory>
+    </testsuite>
     <testsuite name="kernel">
       <directory>tests/src/Kernel</directory>
     </testsuite>
