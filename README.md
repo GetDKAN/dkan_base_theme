@@ -42,7 +42,8 @@ controls `#dbt-header-panel`), the panel with the primary and account menus
 (`.dbt-header__primary`, `.dbt-header__secondary`), then the search form.
 From 64em the panel is `display: contents`, giving one row: wordmark |
 primary | account | search. Below that the panel opens as a sheet over the
-search row; Escape and outside clicks close it (`js/menu-toggle.js`). The
+search row; Escape, outside clicks and focus leaving the panel close it
+(`js/menu-toggle.js`). The
 account menu template (`menu--account.html.twig`) and the toggle use the
 module's `dkan_catalog_ui:icon` component, which is why the theme depends
 on `dkan_catalog_ui`.
@@ -58,16 +59,21 @@ as static links; About and any other pages are site content links.
 
 `catalog_search_path` (default `/search`): the header search form submits a
 GET request here with the term in `fulltext`, matching the catalog view's
-exposed filter. Empty hides the form. Edit at
-`/admin/appearance/settings/dkan_base_theme`.
+exposed filter. It must be an internal path (`/search` or `search`); external
+URLs are rejected by the settings form and, if set another way, hide the
+form and log a warning. Empty hides the form. Edit at
+`/admin/appearance/settings/dkan_base_theme`. A subtheme reads its own
+`<subtheme>.settings` value and falls back to the base theme's until it
+saves one (see Subtheme below).
 
 ## Libraries
 
 - `global`: tokens, base, layout and component CSS on every page, plus the
   menu toggle script (`js/menu-toggle.js`, depends on `core/once`).
-- `catalog`: `css/catalog.css` in the `theme` category, attached only to the
-  `dkan_catalog_ui_search` view and full dataset nodes, where it overrides the
-  module's component CSS.
+- `catalog`: `css/catalog.css` in the `theme` category, attached through
+  `libraries-extend` wherever the module attaches `dkan_catalog_ui/base` or
+  `dkan_catalog_ui/search` (the search view, full data nodes, `/api/docs`),
+  where it overrides the module's component CSS.
 
 ## Styled selector contract
 
@@ -121,12 +127,28 @@ regions:
 The base theme's `global` library still loads. Override templates by copying
 them into the subtheme's `templates/` directory.
 
+The catalog search path setting appears on the subtheme's settings form and
+saves to `<subtheme>.settings`; until then the base theme's value applies.
+Ship a schema for it (core validates theme settings config):
+
+```yaml
+# my_site/config/schema/my_site.schema.yml
+my_site.settings:
+  type: theme_settings
+  mapping:
+    catalog_search_path:
+      type: string
+```
+
 ### Tokens
 
 All colors, type, spacing and sizing are `--dbt-*` custom properties on
 `:root` in `css/tokens.css`. The same file maps the module's `--dcu-*`
 tokens onto them. A subtheme re-skins by redefining `--dbt-*` in its own
-stylesheet; run `php scripts/contrast.php` after changing colors.
+stylesheet; run `php scripts/contrast.php --tokens=path/to/your/tokens.css`
+after changing colors (the file must define every color it overrides as
+`#rrggbb`). The focus ring is `--dbt-color-focus` at 3:1 on the light
+surfaces with a `--dbt-color-surface` gap inside it for the dark ones.
 
 ```css
 :root {

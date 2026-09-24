@@ -59,6 +59,46 @@ class PageVariablesTest extends CatalogUiKernelTestBase {
   }
 
   /**
+   * A subtheme inherits the base value until it saves its own.
+   */
+  public function testSubthemeSetting(): void {
+    $this->container->get('theme_installer')->install(['dbt_sub']);
+    $this->config('system.theme')->set('default', 'dbt_sub')->save();
+    $this->container->get('theme.manager')->resetActiveTheme();
+    $this->container->get('theme.initialization')->initTheme('dbt_sub');
+
+    $variables = $this->preprocess(NULL);
+    $html = (string) $this->container->get('renderer')->renderInIsolation($variables['dbt_search']);
+    $this->assertStringContainsString('action="/search"', $html);
+    $this->assertContains('config:dbt_sub.settings', $variables['#cache']['tags']);
+    $this->assertContains('config:dkan_base_theme.settings', $variables['#cache']['tags']);
+    $this->assertContains('config:dbt_sub.settings', $variables['dbt_search']['#cache']['tags']);
+
+    // The settings form shows the inherited value and registers the submit
+    // handler that invalidates the tag on a first save.
+    $form = [];
+    $form_state = new FormState();
+    $form_state->addBuildInfo('args', ['dbt_sub']);
+    dkan_base_theme_form_system_theme_settings_alter($form, $form_state);
+    $this->assertSame('/search', $form['dkan_base_theme']['catalog_search_path']['#default_value']);
+    $this->assertContains('dkan_base_theme_settings_submit', $form['#submit']);
+
+    // Core does not invalidate the tag when the config object is created,
+    // which is what the submit handler is for.
+    $this->config('dbt_sub.settings')->set('catalog_search_path', '/find')->save();
+    dkan_base_theme_settings_submit($form, $form_state);
+    $variables = $this->preprocess(NULL);
+    $html = (string) $this->container->get('renderer')->renderInIsolation($variables['dbt_search']);
+    $this->assertStringContainsString('action="/find"', $html);
+
+    // An empty subtheme value hides the form; the base value is not used.
+    $this->config('dbt_sub.settings')->set('catalog_search_path', '')->save();
+    $this->assertNull($this->preprocess(NULL)['dbt_search']);
+    $this->assertSame('', dkan_base_theme_search_path('dbt_sub'));
+    $this->assertSame('/search', dkan_base_theme_search_path('dkan_base_theme'));
+  }
+
+  /**
    * External values hide the form instead of throwing.
    */
   public function testExternalPathHidesForm(): void {

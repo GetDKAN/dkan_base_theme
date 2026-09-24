@@ -127,10 +127,13 @@ small {
   font-size: var(--dbt-font-size-sm);
 }
 
-/* Focus: one visible ring everywhere. */
+/* Focus: one visible ring everywhere. The surface-coloured gap between the
+   element and the ring keeps it visible on dark surfaces (primary buttons,
+   the header); the focus colour holds 3:1 on the light ones. */
 :focus-visible {
   outline: 3px solid var(--dbt-color-focus);
   outline-offset: 2px;
+  box-shadow: var(--dbt-focus-ring);
 }
 
 :focus:not(:focus-visible) {

@@ -2,8 +2,10 @@
  * @file
  * Toggles the header panel (primary and account menus) on narrow screens.
  *
- * The button swaps its icons through aria-expanded (CSS). Escape and clicks
- * outside the header close the panel; Escape returns focus to the button.
+ * The button swaps its icons through aria-expanded (CSS). Escape, clicks
+ * outside the header and focus leaving the panel close it (the open sheet
+ * covers the search row, so Tab must not land behind it); Escape returns
+ * focus to the button.
  */
 
 (function (Drupal, once) {
@@ -20,6 +22,14 @@
           panel.classList.toggle('is-open', open);
         };
         button.addEventListener('click', () => setOpen(!isOpen()));
+        const closeWhenFocusLeaves = (event) => {
+          const next = event.relatedTarget;
+          if (isOpen() && next && !panel.contains(next) && !button.contains(next)) {
+            setOpen(false);
+          }
+        };
+        panel.addEventListener('focusout', closeWhenFocusLeaves);
+        button.addEventListener('focusout', closeWhenFocusLeaves);
         document.addEventListener('keydown', (event) => {
           if (event.key === 'Escape' && isOpen()) {
             setOpen(false);

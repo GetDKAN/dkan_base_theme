@@ -1,0 +1,7 @@
+dbt_sub.settings:
+  type: theme_settings
+  label: 'DKAN Base test subtheme settings'
+  mapping:
+    catalog_search_path:
+      type: string
+      label: 'Catalog search path'

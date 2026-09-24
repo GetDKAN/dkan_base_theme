@@ -10,6 +10,13 @@ dependencies:
 libraries:
   - core/normalize
   - dkan_base_theme/global
+# catalog.css loads wherever the module attaches its own catalog libraries
+# (the search view, full dataset nodes), so the two cannot drift apart.
+libraries-extend:
+  dkan_catalog_ui/base:
+    - dkan_base_theme/catalog
+  dkan_catalog_ui/search:
+    - dkan_base_theme/catalog
 regions:
   header: Header
   primary_menu: 'Primary menu'

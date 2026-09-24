@@ -21,7 +21,7 @@
   --dbt-color-error: #b50909;
   --dbt-color-warning: #ffbe2e;
   --dbt-color-warning-text: #5c4400;
-  --dbt-color-focus: #2491ff;
+  --dbt-color-focus: #1a6fcf;
 
   /* Type. */
   --dbt-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -47,7 +47,8 @@
   --dbt-container-max: 75rem;
   --dbt-sidebar-width: 18rem;
   --dbt-control-height: 2.5rem;
-  --dbt-focus-ring: 0 0 0 3px var(--dbt-color-focus);
+  /* Inner gap of the focus ring; the outline draws the ring itself. */
+  --dbt-focus-ring: 0 0 0 2px var(--dbt-color-surface);
 
   /* dkan_catalog_ui mapping. */
   --dcu-color-text: var(--dbt-color-text);

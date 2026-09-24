@@ -4,25 +4,35 @@
  * @file
  * Prints WCAG 2.2 contrast ratios for the pairs the theme renders.
  *
- * Usage: php scripts/contrast.php [--min=4.5]. Exit 1 if any pair fails.
+ * Usage: php scripts/contrast.php [--min=4.5] [--tokens=path/to/tokens.css]
+ * Text pairs must reach --min; non-text pairs (focus ring) 3:1. Exit 1 if
+ * any pair fails. A subtheme passes its own tokens file, which must define
+ * every --dbt-color-* it overrides in #rrggbb form.
  */
 
 $min = 4.5;
+$tokens = __DIR__ . '/../css/tokens.css';
 foreach ($argv as $arg) {
   if (preg_match('/^--min=([\d.]+)$/', $arg, $m)) {
     $min = (float) $m[1];
   }
+  elseif (preg_match('/^--tokens=(.+)$/', $arg, $m)) {
+    $tokens = $m[1];
+  }
 }
 
-$css = file_get_contents(__DIR__ . '/../css/tokens.css');
+$css = file_get_contents($tokens);
 preg_match_all('/--dbt-color-([a-z-]+):\s*(#[0-9a-f]{6})/i', $css, $matches, PREG_SET_ORDER);
 $colors = [];
 foreach ($matches as $m) {
   $colors[$m[1]] = $m[2];
 }
 
-// [foreground, background, where it is used].
+// [foreground, background, where it is used, minimum ratio (default --min)].
 $pairs = [
+  ['focus', 'surface', 'focus ring on the page', 3.0],
+  ['focus', 'surface-alt', 'focus ring on alt surfaces', 3.0],
+  ['primary-contrast', 'primary', 'focus ring gap on primary', 3.0],
   ['text', 'surface', 'body text'],
   ['text', 'surface-alt', 'text on cards and alt surfaces'],
   ['text-muted', 'surface', 'muted text'],
@@ -59,15 +69,17 @@ function ratio(string $a, string $b): float {
 }
 
 $failed = FALSE;
-foreach ($pairs as [$fg, $bg, $use]) {
+foreach ($pairs as $pair) {
+  [$fg, $bg, $use] = $pair;
+  $required = $pair[3] ?? $min;
   if (!isset($colors[$fg], $colors[$bg])) {
     printf("MISSING  %s on %s\n", $fg, $bg);
     $failed = TRUE;
     continue;
   }
   $r = ratio($colors[$fg], $colors[$bg]);
-  $ok = $r >= $min;
+  $ok = $r >= $required;
   $failed = $failed || !$ok;
-  printf("%s  %5.2f  %s on %s (%s)\n", $ok ? 'PASS' : 'FAIL', $r, $fg, $bg, $use);
+  printf("%s  %5.2f  %s on %s (%s, min %.1f)\n", $ok ? 'PASS' : 'FAIL', $r, $fg, $bg, $use, $required);
 }
 exit($failed ? 1 : 0);
