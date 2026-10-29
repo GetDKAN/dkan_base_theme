@@ -2,9 +2,10 @@
 
 Framework-free base theme for DKAN 4 sites running `dkan_catalog_ui`. Plain
 CSS with custom properties, no build step, no design-system dependency.
-Generated from `starterkit_theme` (Drupal 11.4.5) and trimmed: only
-`page.html.twig`, `node.html.twig` and `menu--account.html.twig` are
-overridden; everything else renders with core's templates.
+Generated from `starterkit_theme` (Drupal 11.4.5) with `base theme: false`.
+The starterkit templates stay in `templates/` because without a base theme
+Drupal falls back to the core module templates, which lack the classes
+(`menu-item`, `breadcrumb`, `region-*`, `tabs`, `messages`) the CSS targets.
 
 ## Install
 
