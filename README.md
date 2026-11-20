@@ -199,3 +199,7 @@ placement on install, the header search setting (validation, subtheme
 inheritance, cache tags), the header and footer DOM order, and catalog
 library attachment through `libraries-extend`. The menu toggle and responsive layout are
 checked manually in a browser at 375px and 1440px.
+
+CI: `.github/workflows/lint.yml` (phpcs, contrast, eslint, stylelint) and
+`tests.yml` (PHPUnit on a ddev Drupal 11 + DKAN site, with
+`dkan_catalog_ui` `main` checked out for the shared kernel test base).
