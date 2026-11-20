@@ -250,3 +250,16 @@
     width: calc(clamp(12rem, 20vw, 18rem) + 3rem);
   }
 }
+
+/* Forced colors repaint the transparent underline on every link; keep it
+   for the current item only. System colors are kept. */
+@media (min-width: 64em) and (forced-colors: active) {
+  .dbt-header__panel .menu-item a {
+    border-block-end-color: Canvas;
+  }
+
+  .dbt-header__primary .menu-item a.is-active,
+  .dbt-header__primary .menu-item--active-trail > a {
+    border-block-end-color: Highlight;
+  }
+}
