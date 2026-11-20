@@ -1,0 +1,7 @@
+name: 'DKAN Base test subtheme'
+type: theme
+description: 'Test-only subtheme of dkan_base_theme.'
+package: Testing
+core_version_requirement: ^10.4 || ^11
+'base theme': dkan_base_theme
+hidden: true

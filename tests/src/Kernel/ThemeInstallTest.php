@@ -16,14 +16,6 @@ class ThemeInstallTest extends CatalogUiKernelTestBase {
    */
   protected static $modules = ['block'];
 
-  /**
-   * Merge the base class modules (the theme depends on the module).
-   */
-  public static function setUpBeforeClass(): void {
-    parent::setUpBeforeClass();
-    static::$modules = array_values(array_unique(array_merge(parent::$modules, static::$modules)));
-  }
-
   public function testInstallPlacesShippedBlocks(): void {
     $storage = $this->container->get('entity_type.manager')->getStorage('block');
     $themeInstaller = $this->container->get('theme_installer');

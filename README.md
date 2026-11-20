@@ -2,7 +2,10 @@
 
 Framework-free base theme for DKAN 4 sites running `dkan_catalog_ui`. Plain
 CSS with custom properties, no build step, no design-system dependency.
-Generated from `starterkit_theme` (Drupal 11.4.5) and trimmed.
+Generated from `starterkit_theme` (Drupal 11.4.5) with `base theme: false`.
+The starterkit templates stay in `templates/` because without a base theme
+Drupal falls back to the core module templates, which lack the classes
+(`menu-item`, `breadcrumb`, `region-*`, `tabs`, `messages`) the CSS targets.
 
 ## Install
 
@@ -42,13 +45,14 @@ controls `#dbt-header-panel`), the panel with the primary and account menus
 (`.dbt-header__primary`, `.dbt-header__secondary`), then the search form.
 From 64em the panel is `display: contents`, giving one row: wordmark |
 primary | account | search. Below that the panel opens as a sheet over the
-search row; Escape and outside clicks close it (`js/menu-toggle.js`). The
+search row; Escape, outside clicks and focus leaving the panel close it
+(`js/menu-toggle.js`). The
 account menu template (`menu--account.html.twig`) and the toggle use the
 module's `dkan_catalog_ui:icon` component, which is why the theme depends
 on `dkan_catalog_ui`.
 
-The footer always renders: the site logo linking home (`dbt_logo`), the
-footer menu, "Powered by DKAN" and the footer region. The skip link sits
+The footer always renders: the site logo linking home when one is set
+(`dbt_logo`), the footer menu, "Powered by DKAN" and the footer region. The skip link sits
 centred above the header when focused.
 
 Main-menu links: `dkan_catalog_ui` ships Datasets and API (`/api/docs`)
@@ -58,45 +62,49 @@ as static links; About and any other pages are site content links.
 
 `catalog_search_path` (default `/search`): the header search form submits a
 GET request here with the term in `fulltext`, matching the catalog view's
-exposed filter. Empty hides the form. Edit at
-`/admin/appearance/settings/dkan_base_theme`.
+exposed filter. It must be an internal path (`/search` or `search`); external
+URLs are rejected by the settings form and, if set another way, hide the
+form and log a warning. Empty hides the form. Edit at
+`/admin/appearance/settings/dkan_base_theme`. A subtheme reads its own
+`<subtheme>.settings` value and falls back to the base theme's until it
+saves one (see Subtheme below).
 
 ## Libraries
 
 - `global`: tokens, base, layout and component CSS on every page, plus the
   menu toggle script (`js/menu-toggle.js`, depends on `core/once`).
-- `catalog`: `css/catalog.css` in the `theme` category, attached only to the
-  `dkan_catalog_ui_search` view and full dataset nodes, where it overrides the
-  module's component CSS.
+- `catalog`: `css/catalog.css` in the `theme` category, attached through
+  `libraries-extend` wherever the module attaches `dkan_catalog_ui/base` or
+  `dkan_catalog_ui/search` (the search view, full data nodes, `/api/docs`),
+  where it overrides the module's component CSS.
 
 ## Styled selector contract
 
 `css/catalog.css` styles markup the theme does not own. Changes to these
 class names upstream need matching changes here:
 
-- `dkan_catalog_ui`: `.dcu-search*` (`__filter-link` jumps to
-  `#dcu-facets` under 64em; the sidebar follows the results in the DOM
-  and the module's grid puts it first at 64em and up),
+- `dkan_catalog_ui`: `.dcu-search*` (the sidebar follows the results in
+  the DOM and the module's grid puts it first at 64em and up; the module's
+  own `__filter-link` jumps to `#dcu-facets` under 64em),
   `.dcu-facets*` (`__facet--long` on lists over eight items), `.dcu-card*`,
   `.dcu-dataset-header*`, `.dcu-tabs*`, `.dcu-resource*`,
   `.dcu-metadata-table*`, `.dcu-data-dictionary*`, `.dcu-endpoint*`,
   `.dcu-button`, `.dcu-icon` (inline SVG, sized by `font-size`).
 - `dkan_catalog_ui_preview`: `.dcu-table*`, one bordered workspace
   (requires the matching module markup; see its README). Toolbar rows:
-  `__file` (`__identity` with `__chooser` / `__caption` / `__file-label` /
-  `__meta`, then `__download`, the one filled control: a Download
-  disclosure with `__download-option` / `__download-original` /
-  `__download-results` (`.is-disabled` with zero matches), or a direct link
+  `__file` (`__chooser` / `__caption` / `__file-label` / `__meta`, then
+  `__download`, the one filled control: a Download disclosure with
+  `__download-option` (`.is-disabled` with zero matches), or a direct link
   when only the original exists), `__tools` (tinted band; Filters, Columns,
   View, then `__panel--share` as a quiet link at the end), `__status` with
   `__summary` and the chips. `__footer` holds `__page-size` then the pager.
   `__panel` / `__panel-body` popovers become bottom sheets under 48em;
   `__panel-head` / `__panel-heading` / `__panel-close` (JS-only, shown
   under 48em), `__panel-chevron`, `__field` (labelled filter controls),
-  `__link-button`, `__button-label`, `__column-list--long`, `__chip`,
-  `__cell--number`, `__wrapper` (horizontal scroll; in `--fullscreen` the
-  flex region that scrolls both ways, with a sticky header), `--density-*`,
-  and the core pager class names it reuses plus `.pager__label` (hidden
+  `__link-button`, `__column-list--long`, `__chip`, `__cell--number`,
+  `__wrapper` (horizontal scroll; in `--fullscreen` the flex region that
+  scrolls both ways, with a sticky header), and the core pager class names
+  it reuses plus `.pager__label` (hidden
   under 48em). Secondary controls use `--dcu-table-control-border`, a
   token mix set on `.dcu-table`.
 - `facets`: `.facet-item`, `.facet-item__value`, `.facet-item__count`.
@@ -121,12 +129,28 @@ regions:
 The base theme's `global` library still loads. Override templates by copying
 them into the subtheme's `templates/` directory.
 
+The catalog search path setting appears on the subtheme's settings form and
+saves to `<subtheme>.settings`; until then the base theme's value applies.
+Ship a schema for it (core validates theme settings config):
+
+```yaml
+# my_site/config/schema/my_site.schema.yml
+my_site.settings:
+  type: theme_settings
+  mapping:
+    catalog_search_path:
+      type: string
+```
+
 ### Tokens
 
 All colors, type, spacing and sizing are `--dbt-*` custom properties on
 `:root` in `css/tokens.css`. The same file maps the module's `--dcu-*`
 tokens onto them. A subtheme re-skins by redefining `--dbt-*` in its own
-stylesheet; run `php scripts/contrast.php` after changing colors.
+stylesheet; run `php scripts/contrast.php --tokens=path/to/your/tokens.css`
+after changing colors (the file must define every color it overrides as a
+hex colour). The focus ring is `--dbt-color-focus` at 3:1 on the light
+surfaces with a `--dbt-color-surface` gap inside it for the dark ones.
 
 ```css
 :root {
@@ -170,6 +194,8 @@ DRUPAL_ROOT=/var/www/html/docroot SIMPLETEST_BASE_URL=$DDEV_PRIMARY_URL \
 php scripts/contrast.php
 ```
 
-Kernel tests cover block placement on install, the header search setting,
-and catalog library attachment. The menu toggle and responsive layout are
+A unit test covers the search path validator. Kernel tests cover block
+placement on install, the header search setting (validation, subtheme
+inheritance, cache tags), the header and footer DOM order, and catalog
+library attachment through `libraries-extend`. The menu toggle and responsive layout are
 checked manually in a browser at 375px and 1440px.

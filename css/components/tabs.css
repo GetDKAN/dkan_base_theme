@@ -17,14 +17,14 @@ ul.tabs {
   display: inline-block;
   margin-block-end: -2px;
   padding: var(--dbt-space-sm) var(--dbt-space-md);
-  border-block-end: 2px solid transparent;
-  color: var(--dbt-color-text-muted);
-  font-weight: 600;
   text-decoration: none;
+  color: var(--dbt-color-text-muted);
+  border-block-end: 2px solid transparent;
+  font-weight: 600;
 }
 
 .tabs a:hover,
-.tabs a:focus {
+.tabs a:focus-visible {
   color: var(--dbt-color-link-hover);
   border-block-end-color: var(--dbt-color-border);
 }

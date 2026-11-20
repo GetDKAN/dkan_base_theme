@@ -11,8 +11,8 @@ details {
 
 summary {
   padding: var(--dbt-space-sm) var(--dbt-space-md);
-  font-weight: 600;
   cursor: pointer;
+  font-weight: 600;
 }
 
 summary:hover {

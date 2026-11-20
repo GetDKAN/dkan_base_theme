@@ -12,19 +12,19 @@ input[type="reset"],
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--dbt-space-xs);
   min-height: var(--dbt-control-height);
   margin: 0;
   padding: var(--dbt-space-sm) var(--dbt-space-md);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--dbt-color-primary-contrast);
   border: 2px solid var(--dbt-color-primary);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-primary);
-  color: var(--dbt-color-primary-contrast);
   font: inherit;
   font-weight: 600;
   line-height: 1.2;
-  text-decoration: none;
-  cursor: pointer;
+  gap: var(--dbt-space-xs);
 }
 
 .button:visited,
@@ -41,34 +41,34 @@ button:hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 .dcu-button:hover,
-.button:focus,
-.dcu-button:focus {
-  background: var(--dbt-color-link-hover);
-  border-color: var(--dbt-color-link-hover);
+.button:focus-visible,
+.dcu-button:focus-visible {
   color: var(--dbt-color-primary-contrast);
+  border-color: var(--dbt-color-link-hover);
+  background: var(--dbt-color-link-hover);
 }
 
 .button--secondary,
 .button--danger {
-  background: transparent;
   color: var(--dbt-color-primary);
+  background: transparent;
 }
 
 .button--secondary:hover,
-.button--secondary:focus {
-  background: var(--dbt-color-surface-alt);
+.button--secondary:focus-visible {
   color: var(--dbt-color-link-hover);
+  background: var(--dbt-color-surface-alt);
 }
 
 .button--danger {
-  border-color: var(--dbt-color-error);
   color: var(--dbt-color-error);
+  border-color: var(--dbt-color-error);
 }
 
 .button--danger:hover,
-.button--danger:focus {
-  background: var(--dbt-color-error);
+.button--danger:focus-visible {
   border-color: var(--dbt-color-error);
+  background: var(--dbt-color-error);
 }
 
 .button .dcu-icon,
@@ -87,6 +87,6 @@ button .dcu-icon,
 button:disabled,
 input[type="submit"]:disabled,
 .is-disabled {
-  opacity: 0.55;
   cursor: not-allowed;
+  opacity: 0.55;
 }

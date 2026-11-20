@@ -24,7 +24,7 @@
 }
 
 .menu-item a:hover,
-.menu-item a:focus {
+.menu-item a:focus-visible {
   text-decoration: underline;
 }
 

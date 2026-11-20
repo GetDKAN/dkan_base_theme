@@ -16,7 +16,8 @@
 }
 
 .breadcrumb li:not(:last-child)::after {
-  content: "/";
+  /* Alternative text "" keeps the separator out of the accessibility tree. */
+  content: "/" / "";
   margin-inline: var(--dbt-space-sm);
   color: var(--dbt-color-text-muted);
 }

@@ -21,7 +21,7 @@
   padding-block: var(--dbt-space-md) var(--dbt-space-xl);
 }
 
-.dbt-main:focus {
+.dbt-main:focus-visible {
   outline: none;
 }
 

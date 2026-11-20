@@ -19,17 +19,17 @@ ul.action-links {
   align-items: center;
   min-height: var(--dbt-control-height);
   padding: var(--dbt-space-sm) var(--dbt-space-md);
+  text-decoration: none;
+  color: var(--dbt-color-primary);
   border: 2px solid var(--dbt-color-primary);
   border-radius: var(--dbt-radius);
-  color: var(--dbt-color-primary);
   font-weight: 600;
-  text-decoration: none;
 }
 
 .action-links a:hover,
-.action-links a:focus {
-  background: var(--dbt-color-primary);
+.action-links a:focus-visible {
   color: var(--dbt-color-primary-contrast);
+  background: var(--dbt-color-primary);
 }
 
 .more-link {

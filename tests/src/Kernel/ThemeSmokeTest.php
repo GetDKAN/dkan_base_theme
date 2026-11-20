@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\dkan_base_theme\Kernel;
 
+use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\dkan_catalog_ui\Hook\EntityHooks;
 use Drupal\search_api\Entity\Index;
@@ -29,22 +30,9 @@ class ThemeSmokeTest extends CatalogUiKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static function setUpBeforeClass(): void {
-    parent::setUpBeforeClass();
-    static::$modules = array_values(array_unique(array_merge(parent::$modules, static::$modules)));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   protected function setUp(): void {
     parent::setUp();
-    $this->installSchema('search_api', ['search_api_item']);
-    $this->installEntitySchema('search_api_task');
-    \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
-    $this->installConfig(['search_api', 'dkan_metastore_search', 'dkan_catalog_ui']);
-    \Drupal::moduleHandler()->loadInclude('dkan_catalog_ui', 'install');
-    dkan_catalog_ui_ensure_format_index_field();
+    $this->installSearchConfig();
     EntityViewDisplay::load('node.data.default')
       ->setComponent(EntityHooks::FIELD_HEADER, ['weight' => 0])
       ->setComponent(EntityHooks::FIELD_OVERVIEW, ['weight' => 20])
@@ -129,22 +117,39 @@ class ThemeSmokeTest extends CatalogUiKernelTestBase {
     $build = $view->render('page_1');
     $html = (string) $renderer->renderRoot($build);
     $this->assertStringContainsString('dcu-card', $html);
-    $this->assertContains('dkan_base_theme/catalog', $build['#attached']['library']);
+    $this->assertContains('dkan_catalog_ui/search', $build['#attached']['library']);
+    $this->assertContains('catalog.css', $this->resolvedCss($build));
 
     $dataset = $storage->loadByProperties(['uuid' => 'smoke-test']);
     $build = $viewBuilder->view(reset($dataset), 'full');
     $html = (string) $renderer->renderRoot($build);
     $this->assertStringContainsString('dcu-dataset', $html);
-    $this->assertContains('dkan_base_theme/catalog', $build['#attached']['library']);
-
-    $distribution = $storage->loadByProperties(['field_data_type' => 'distribution']);
-    $build = $viewBuilder->view(reset($distribution), 'full');
-    $renderer->renderRoot($build);
-    $this->assertNotContains('dkan_base_theme/catalog', $build['#attached']['library'] ?? []);
+    $this->assertContains('dkan_catalog_ui/base', $build['#attached']['library']);
+    $this->assertContains('catalog.css', $this->resolvedCss($build));
 
     $build = $viewBuilder->view(reset($dataset), 'search_result');
     $renderer->renderRoot($build);
-    $this->assertNotContains('dkan_base_theme/catalog', $build['#attached']['library'] ?? []);
+    $this->assertNotContains('catalog.css', $this->resolvedCss($build));
+
+    // libraries-extend merges catalog.css into the module's libraries.
+    $discovery = $this->container->get('library.discovery');
+    foreach (['base', 'search'] as $library) {
+      $files = array_map('basename', array_column($discovery->getLibraryByName('dkan_catalog_ui', $library)['css'], 'data'));
+      $this->assertContains('catalog.css', $files, $library);
+    }
+  }
+
+  /**
+   * Basenames of the CSS files a rendered build resolves to.
+   *
+   * @return string[]
+   *   File basenames.
+   */
+  protected function resolvedCss(array $build): array {
+    $assets = AttachedAssets::createFromRenderArray($build);
+    $language = $this->container->get('language_manager')->getCurrentLanguage();
+    $css = $this->container->get('asset.resolver')->getCssAssets($assets, FALSE, $language);
+    return array_map('basename', array_keys($css));
   }
 
 }

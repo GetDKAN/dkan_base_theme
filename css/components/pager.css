@@ -20,10 +20,10 @@
   justify-content: center;
   min-width: var(--dbt-control-height);
   min-height: var(--dbt-control-height);
-  padding-inline: var(--dbt-space-sm);
+  text-decoration: none;
   border: 1px solid var(--dbt-color-border);
   border-radius: var(--dbt-radius);
-  text-decoration: none;
+  padding-inline: var(--dbt-space-sm);
 }
 
 .pager__item--ellipsis {
@@ -31,12 +31,12 @@
 }
 
 .pager__item a:hover,
-.pager__item a:focus {
+.pager__item a:focus-visible {
   background: var(--dbt-color-surface-alt);
 }
 
 .pager__item.is-active a {
+  color: var(--dbt-color-primary-contrast);
   border-color: var(--dbt-color-primary);
   background: var(--dbt-color-primary);
-  color: var(--dbt-color-primary-contrast);
 }

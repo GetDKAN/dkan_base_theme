@@ -34,8 +34,8 @@
 
 .site-logo img {
   display: block;
-  height: 2.5rem;
   width: auto;
+  height: 2.5rem;
 }
 
 .site-name {
@@ -44,8 +44,8 @@
 }
 
 .site-name a {
-  color: var(--dbt-color-text);
   text-decoration: none;
+  color: var(--dbt-color-text);
 }
 
 .site-slogan {
@@ -57,16 +57,16 @@
 .dbt-menu-toggle {
   display: none;
   grid-column: 2;
-  justify-self: end;
   align-items: center;
   justify-content: center;
+  justify-self: end;
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
+  color: var(--dbt-color-primary);
   border: 2px solid var(--dbt-color-primary);
   border-radius: var(--dbt-radius);
   background: var(--dbt-color-surface);
-  color: var(--dbt-color-primary);
 }
 
 .js .dbt-menu-toggle {
@@ -74,10 +74,10 @@
 }
 
 .dbt-menu-toggle:hover,
-.dbt-menu-toggle:focus {
-  background: var(--dbt-color-surface-alt);
-  border-color: var(--dbt-color-link-hover);
+.dbt-menu-toggle:focus-visible {
   color: var(--dbt-color-link-hover);
+  border-color: var(--dbt-color-link-hover);
+  background: var(--dbt-color-surface-alt);
 }
 
 .dbt-menu-toggle .dcu-icon {
@@ -107,7 +107,7 @@
   padding: var(--dbt-space-sm) var(--dbt-space-md) var(--dbt-space-lg);
   border-block-end: 1px solid var(--dbt-color-border);
   background: var(--dbt-color-surface);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5rem 1rem rgb(0, 0, 0, 0.15);
 }
 
 .dbt-header__panel .menu {
@@ -118,24 +118,24 @@
 .dbt-header__panel .menu-item a {
   display: flex;
   align-items: center;
-  gap: var(--dbt-space-xs);
   padding: var(--dbt-space-sm) 0;
-  border-block-end: 1px solid var(--dbt-color-border);
-  color: var(--dbt-color-text);
-  font-weight: 600;
   text-decoration: none;
+  color: var(--dbt-color-text);
+  border-block-end: 1px solid var(--dbt-color-border);
+  font-weight: 600;
+  gap: var(--dbt-space-xs);
 }
 
 .dbt-header__panel .menu-item a:hover,
-.dbt-header__panel .menu-item a:focus {
+.dbt-header__panel .menu-item a:focus-visible {
   color: var(--dbt-color-link-hover);
 }
 
 .dbt-header__primary .menu-item a.is-active,
 .dbt-header__primary .menu-item--active-trail > a {
   padding-inline-start: var(--dbt-space-sm);
-  border-inline-start: 3px solid var(--dbt-color-primary);
   color: var(--dbt-color-primary);
+  border-inline-start: 3px solid var(--dbt-color-primary);
 }
 
 .dbt-header__secondary .menu-item a {
@@ -158,7 +158,9 @@
   border: 1px solid var(--dbt-color-border);
   border-start-end-radius: 0;
   border-end-end-radius: 0;
-  background: var(--dbt-color-surface) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E") no-repeat 0.625rem center;
+  background: var(--dbt-color-surface)
+    url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E")
+    no-repeat 0.625rem center;
 }
 
 [dir="rtl"] .dbt-header-search__input {
@@ -224,7 +226,7 @@
   }
 
   .dbt-header__panel .menu-item a:hover,
-  .dbt-header__panel .menu-item a:focus {
+  .dbt-header__panel .menu-item a:focus-visible {
     background: var(--dbt-color-surface-alt);
   }
 
