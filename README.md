@@ -197,7 +197,9 @@ php scripts/contrast.php
 A unit test covers the search path validator. Kernel tests cover block
 placement on install, the header search setting (validation, subtheme
 inheritance, cache tags), the header and footer DOM order, and catalog
-library attachment through `libraries-extend`. The menu toggle and responsive layout are
+library attachment through `libraries-extend`, and the template contract:
+`TemplateContractTest` renders real blocks and theme hooks and asserts the
+classes the CSS targets, so removing a template fails it. The menu toggle and responsive layout are
 checked manually in a browser at 375px and 1440px.
 
 CI: `.github/workflows/lint.yml` (phpcs, contrast, eslint, stylelint) and
