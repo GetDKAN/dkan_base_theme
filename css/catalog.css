@@ -241,6 +241,24 @@
   border-block-end-color: var(--dbt-color-primary);
 }
 
+/* Forced colors repaint transparent borders, so every tab would look
+   selected. Unselected tabs swap the border for padding so the list's rule
+   shows beneath them; the selected tab is filled with system colors (opted
+   out of forcing so the text backplate does not hide HighlightText). */
+@media (forced-colors: active) {
+  .dcu-tabs__link:not([aria-selected="true"]) {
+    padding-block-end: calc(var(--dbt-space-sm) + 3px);
+    border-block-end: 0;
+  }
+
+  .dcu-tabs__link[aria-selected="true"] {
+    forced-color-adjust: none;
+    color: HighlightText;
+    border-block-end-color: Highlight;
+    background: Highlight;
+  }
+}
+
 .dcu-tabs__panel-heading {
   font-size: var(--dbt-font-size-lg);
 }

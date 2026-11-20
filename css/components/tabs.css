@@ -35,6 +35,24 @@ ul.tabs {
   border-block-end-color: var(--dbt-color-primary);
 }
 
+/* Forced colors repaint transparent borders, so every tab would look
+   active. Inactive tabs swap the border for padding so the list's rule
+   shows; the active tab is filled with system colors (opted out of forcing
+   so the text backplate does not hide HighlightText). */
+@media (forced-colors: active) {
+  .tabs a {
+    padding-block-end: calc(var(--dbt-space-sm) + 2px);
+    border-block-end: 0;
+  }
+
+  .tabs .is-active a,
+  .tabs a.is-active {
+    forced-color-adjust: none;
+    color: HighlightText;
+    background: Highlight;
+  }
+}
+
 ul.tabs.secondary {
   border-block-end: 0;
   font-size: var(--dbt-font-size-sm);
