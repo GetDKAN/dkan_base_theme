@@ -1,5 +1,5 @@
-# Coding standards, stylesheet lint and colour contrast. Kernel tests need
-# a DKAN site and are not run here yet.
+# Coding standards, stylesheet lint and colour contrast. PHPUnit runs in
+# tests.yml.
 name: Lint
 
 on:
