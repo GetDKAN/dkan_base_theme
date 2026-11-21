@@ -154,7 +154,12 @@
 .dbt-header-search__input {
   flex: 1 1 auto;
   min-width: 0;
-  border: 1px solid var(--dbt-color-border);
+}
+
+/* Two classes to outrank form.css's input:not(...) rule, so the corners
+   meeting the submit button are square. The border stays form.css's
+   --dbt-color-text-muted; --dbt-color-border is under 3:1 on the surface. */
+.dbt-header-search .dbt-header-search__input {
   border-start-end-radius: 0;
   border-end-end-radius: 0;
 }
