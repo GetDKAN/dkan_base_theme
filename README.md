@@ -186,22 +186,23 @@ module renders `dkan_catalog_ui:dataset-card`.
 
 ## Tests and checks
 
+From the project root, with `dkan_catalog_ui` at `modules/custom/dkan_catalog_ui`:
+
 ```bash
-DRUPAL_ROOT=/var/www/html/docroot SIMPLETEST_BASE_URL=$DDEV_PRIMARY_URL \
-  SIMPLETEST_DB=mysql://db:db@db:3306/db \
-  vendor/bin/phpunit -c docroot/themes/custom/dkan_base_theme
-../../../../vendor/bin/phpcs --standard=phpcs.xml.dist .
-php scripts/contrast.php
+ddev exec "DRUPAL_ROOT=/var/www/html/docroot SIMPLETEST_BASE_URL=\$DDEV_PRIMARY_URL SIMPLETEST_DB=mysql://db:db@db:3306/db vendor/bin/phpunit -c docroot/themes/custom/dkan_base_theme"
+ddev exec "cd docroot/themes/custom/dkan_base_theme && ../../../../vendor/bin/phpcs --standard=phpcs.xml.dist . && php scripts/contrast.php"
+ddev exec "vendor/bin/phpstan analyse -c docroot/themes/custom/dkan_base_theme/phpstan.neon.dist --memory-limit=1G"
 ```
 
 A unit test covers the search path validator. Kernel tests cover block
 placement on install, the header search setting (validation, subtheme
-inheritance, cache tags), the header and footer DOM order, and catalog
-library attachment through `libraries-extend`, and the template contract:
-`TemplateContractTest` renders real blocks and theme hooks and asserts the
-classes the CSS targets, so removing a template fails it. The menu toggle and responsive layout are
-checked manually in a browser at 375px and 1440px.
+inheritance, cache tags), the header and footer DOM order, catalog library
+attachment through `libraries-extend`, and the template contract:
+`TemplateContractTest` renders real blocks, theme hooks and the empty search
+view and asserts the classes the CSS targets, so removing a template fails
+it. The menu toggle and responsive layout are checked manually in a browser
+at 375px and 1440px.
 
-CI: `.github/workflows/lint.yml` (phpcs, contrast, eslint, stylelint) and
-`tests.yml` (PHPUnit on a ddev Drupal 11 + DKAN site, with
-`dkan_catalog_ui` `main` checked out for the shared kernel test base).
+CI: `.github/workflows/lint.yml` (phpcs, phpstan, contrast, eslint,
+stylelint) and `tests.yml` (PHPUnit on a ddev Drupal 11 + DKAN site, latest
+core and the 11.3 floor, with `dkan_catalog_ui` `main` checked out).
