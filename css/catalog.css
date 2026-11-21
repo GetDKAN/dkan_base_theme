@@ -792,18 +792,19 @@ a.dcu-table__download-option .dcu-table__download-title {
 }
 
 /* The theme's top margin on .dcu-table must not push the fixed panel;
-   the right padding keeps the toolbar clear of the (physically right)
-   close button. Table height comes from the component's flex layout. */
+   the inline-end padding keeps the toolbar clear of the close button.
+   Table height comes from the component's flex layout. */
 .dcu-table--fullscreen {
   margin: 0;
-  padding: var(--dbt-space-md) 3.5rem var(--dbt-space-md) var(--dbt-space-md);
+  padding-block: var(--dbt-space-md);
+  padding-inline: var(--dbt-space-md) 3.5rem;
   border: 0;
   border-radius: 0;
   background: var(--dbt-color-surface);
 }
 
 /* Close buttons (full screen, bottom sheets): one square style, sitting
-   at the top right inside the container's padding. */
+   at the top inline-end corner inside the container's padding. */
 .dcu-table__close,
 .dcu-table__panel-body button.dcu-table__panel-close {
   width: 2.25rem;
@@ -818,7 +819,7 @@ a.dcu-table__download-option .dcu-table__download-title {
 
 .dcu-table__close {
   top: var(--dbt-space-md);
-  right: var(--dbt-space-md);
+  inset-inline-end: var(--dbt-space-md);
 }
 
 .dcu-table__close:hover,

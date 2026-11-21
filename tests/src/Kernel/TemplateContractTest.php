@@ -154,7 +154,11 @@ class TemplateContractTest extends CatalogUiKernelTestBase {
       ],
       'pager' => [
         ['#type' => 'pager'],
-        ['.pager__items > .pager__item.is-active', '.pager__items > .pager__item--ellipsis'],
+        [
+          '.pager__items > .pager__item.is-active',
+          // A list item, not role="presentation"; the glyph is hidden.
+          '.pager__items > li.pager__item--ellipsis:not([role]) > span[aria-hidden="true"]',
+        ],
       ],
       'page title' => [
         ['#type' => 'page_title', '#title' => 'Datasets'],
