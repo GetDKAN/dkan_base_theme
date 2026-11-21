@@ -8,8 +8,8 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\dkan_catalog_ui\Kernel\CatalogUiKernelTestBase;
 use Drupal\user\Entity\Role;
+use Drupal\views\Views;
 use PHPUnit\Framework\Attributes\Group;
 
 /**
@@ -20,7 +20,7 @@ use PHPUnit\Framework\Attributes\Group;
  * to core module templates that lack these classes; this test fails then.
  */
 #[Group('dkan_base_theme')]
-class TemplateContractTest extends CatalogUiKernelTestBase {
+class TemplateContractTest extends ThemeKernelTestBase {
 
   use StringTranslationTrait;
 
@@ -74,6 +74,11 @@ class TemplateContractTest extends CatalogUiKernelTestBase {
    *   Case name => [render array, CSS selectors].
    */
   protected function cases(): array {
+    // Before createPager(): the view registers its own pager element 0.
+    $search = Views::getView('dkan_catalog_ui_search');
+    $search->setDisplay('page_1');
+    $search->setExposedInput(['fulltext' => 'no-such-dataset']);
+    $search->execute();
     $this->container->get('pager.manager')->createPager(100, 10);
     $blocks = $this->container->get('entity_type.manager')->getViewBuilder('block');
     $node = Node::create(['type' => 'data', 'title' => 'Dataset', 'field_json_metadata' => '{}']);
@@ -159,6 +164,10 @@ class TemplateContractTest extends CatalogUiKernelTestBase {
           // A list item, not role="presentation"; the glyph is hidden.
           '.pager__items > li.pager__item--ellipsis:not([role]) > span[aria-hidden="true"]',
         ],
+      ],
+      'empty search' => [
+        $search->render('page_1'),
+        ['.dcu-search__main .view-empty'],
       ],
       'page title' => [
         ['#type' => 'page_title', '#title' => 'Datasets'],

@@ -1,0 +1,13 @@
+# Run from the Drupal project root so phpstan-drupal finds the site, with
+# dkan_catalog_ui at modules/custom/dkan_catalog_ui:
+#   vendor/bin/phpstan analyse -c <path-to-theme>/phpstan.neon.dist
+parameters:
+  level: 6
+  paths:
+    - .
+  fileExtensions:
+    - php
+    - theme
+  scanFiles:
+    # The kernel test base calls dkan_catalog_ui_ensure_format_index_field().
+    - ../../../modules/custom/dkan_catalog_ui/dkan_catalog_ui.install

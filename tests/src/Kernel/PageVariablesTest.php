@@ -3,14 +3,13 @@
 namespace Drupal\Tests\dkan_base_theme\Kernel;
 
 use Drupal\Core\Form\FormState;
-use Drupal\Tests\dkan_catalog_ui\Kernel\CatalogUiKernelTestBase;
 use PHPUnit\Framework\Attributes\Group;
 
 /**
  * The header search form follows the catalog_search_path setting.
  */
 #[Group('dkan_base_theme')]
-class PageVariablesTest extends CatalogUiKernelTestBase {
+class PageVariablesTest extends ThemeKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -26,6 +25,9 @@ class PageVariablesTest extends CatalogUiKernelTestBase {
 
   /**
    * Run the page preprocess for a setting value.
+   *
+   * @return array<string, mixed>
+   *   The preprocessed variables.
    */
   protected function preprocess(?string $path): array {
     if ($path !== NULL) {
