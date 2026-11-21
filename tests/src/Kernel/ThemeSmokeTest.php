@@ -6,7 +6,6 @@ use Drupal\Core\Asset\AttachedAssets;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\dkan_catalog_ui\Hook\EntityHooks;
 use Drupal\search_api\Entity\Index;
-use Drupal\Tests\dkan_catalog_ui\Kernel\CatalogUiKernelTestBase;
 use Drupal\views\Views;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -14,7 +13,7 @@ use PHPUnit\Framework\Attributes\Group;
  * Catalog renders under the theme attach the catalog library; others do not.
  */
 #[Group('dkan_base_theme')]
-class ThemeSmokeTest extends CatalogUiKernelTestBase {
+class ThemeSmokeTest extends ThemeKernelTestBase {
 
   /**
    * {@inheritdoc}
@@ -141,6 +140,9 @@ class ThemeSmokeTest extends CatalogUiKernelTestBase {
 
   /**
    * Basenames of the CSS files a rendered build resolves to.
+   *
+   * @param array<string, mixed> $build
+   *   A rendered build.
    *
    * @return string[]
    *   File basenames.

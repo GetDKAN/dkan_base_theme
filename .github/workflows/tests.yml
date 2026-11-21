@@ -1,6 +1,6 @@
-# PHPUnit unit and kernel suites on a ddev Drupal 11 + DKAN site. The kernel
-# tests extend dkan_catalog_ui's test base, so its main branch is checked out
-# alongside.
+# PHPUnit unit and kernel suites on a ddev Drupal 11 + DKAN site: the latest
+# 11.x on PHP 8.4, and the 11.3 floor on PHP 8.3. The theme depends on
+# dkan_catalog_ui, so its main branch is checked out alongside.
 name: Tests
 
 on:
@@ -10,6 +10,13 @@ on:
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { drupal: '^11', php: '8.4' }
+          - { drupal: '~11.3.0', php: '8.3' }
+    name: phpunit (Drupal ${{ matrix.drupal }}, PHP ${{ matrix.php }})
     steps:
       - uses: ddev/github-action-setup-ddev@v1
         with:
@@ -17,15 +24,15 @@ jobs:
       - name: Create a DKAN project
         run: |
           mkdir site && cd site
-          ddev config --project-type=drupal11 --docroot=web --project-name=ci --php-version=8.4 \
+          ddev config --project-type=drupal11 --docroot=web --project-name=ci --php-version=${{ matrix.php }} \
             --web-environment-add=SIMPLETEST_BASE_URL=http://localhost,SIMPLETEST_DB=mysql://db:db@db/db
           ddev start
-          ddev composer create-project drupal/recommended-project:^11 --no-interaction
+          ddev composer create-project "drupal/recommended-project:${{ matrix.drupal }}" --no-interaction
           ddev composer config minimum-stability dev
           ddev composer config prefer-stable true
           ddev composer require drupal/dkan:^4 drupal/facets:^3 drupal/search_api:^1 drush/drush:^13 \
             --no-interaction --with-all-dependencies
-          ddev composer require --dev drupal/core-dev:^11 --no-interaction --with-all-dependencies
+          ddev composer require --dev "drupal/core-dev:${{ matrix.drupal }}" --no-interaction --with-all-dependencies
       - uses: actions/checkout@v4
         with:
           repository: GetDKAN/dkan_catalog_ui

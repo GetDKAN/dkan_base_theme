@@ -2,14 +2,13 @@
 
 namespace Drupal\Tests\dkan_base_theme\Kernel;
 
-use Drupal\Tests\dkan_catalog_ui\Kernel\CatalogUiKernelTestBase;
 use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Installing the theme places the shipped blocks and copies none.
  */
 #[Group('dkan_base_theme')]
-class ThemeInstallTest extends CatalogUiKernelTestBase {
+class ThemeInstallTest extends ThemeKernelTestBase {
 
   /**
    * {@inheritdoc}

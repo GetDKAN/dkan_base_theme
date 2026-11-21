@@ -1,5 +1,5 @@
-# Coding standards, stylesheet lint and colour contrast. PHPUnit runs in
-# tests.yml.
+# Coding standards, static analysis, stylesheet lint and colour contrast.
+# PHPUnit runs in tests.yml.
 name: Lint
 
 on:
@@ -19,6 +19,35 @@ jobs:
       - run: composer global require drupal/coder:^8.3 --no-interaction
       - run: ~/.composer/vendor/bin/phpcs --standard=phpcs.xml.dist .
       - run: php scripts/contrast.php
+
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer
+      # A minimal Drupal project with DKAN, so Drupal and DKAN classes resolve;
+      # core-dev provides PHPUnit for the test classes.
+      - run: composer create-project drupal/recommended-project:^11 site --no-interaction --no-install
+      - run: |
+          cd site
+          composer config minimum-stability dev
+          composer config prefer-stable true
+          composer config allow-plugins.phpstan/extension-installer true
+          composer require drupal/dkan:^4 drupal/facets:^3 drupal/search_api:^1 drush/drush:^13 \
+            phpstan/phpstan:^2 mglaman/phpstan-drupal:^2 phpstan/extension-installer:^1 \
+            --no-interaction --with-all-dependencies
+          composer require --dev drupal/core-dev:^11 --no-interaction --with-all-dependencies
+      # Inside the Drupal root, so phpstan-drupal discovers both extensions.
+      - uses: actions/checkout@v4
+        with:
+          repository: GetDKAN/dkan_catalog_ui
+          path: site/web/modules/custom/dkan_catalog_ui
+      - uses: actions/checkout@v4
+        with:
+          path: site/web/themes/custom/dkan_base_theme
+      - run: cd site && vendor/bin/phpstan analyse -c web/themes/custom/dkan_base_theme/phpstan.neon.dist --memory-limit=1G --no-progress
 
   frontend:
     runs-on: ubuntu-latest

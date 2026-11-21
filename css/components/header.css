@@ -154,17 +154,9 @@
 .dbt-header-search__input {
   flex: 1 1 auto;
   min-width: 0;
-  padding-inline-start: 2.25rem;
   border: 1px solid var(--dbt-color-border);
   border-start-end-radius: 0;
   border-end-end-radius: 0;
-  background: var(--dbt-color-surface)
-    url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23565c65' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E")
-    no-repeat 0.625rem center;
-}
-
-[dir="rtl"] .dbt-header-search__input {
-  background-position: right 0.625rem center;
 }
 
 /* Fixed width: the input, not the button, gives way when space is short. */
