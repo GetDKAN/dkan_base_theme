@@ -14,7 +14,7 @@ drush theme:enable dkan_base_theme
 drush config:set system.theme default dkan_base_theme
 ```
 
-Requires Drupal ^10.4 || ^11 and depends on the `dkan_catalog_ui` module
+Requires Drupal ^11.3 and depends on the `dkan_catalog_ui` module
 (catalog pages, icon component). Claro stays the admin theme.
 
 ## Block placement
@@ -119,7 +119,7 @@ class names upstream need matching changes here:
 name: My Site
 type: theme
 base theme: dkan_base_theme
-core_version_requirement: ^10.4 || ^11
+core_version_requirement: ^11.3
 libraries:
   - my_site/global
 regions:

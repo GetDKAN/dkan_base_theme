@@ -7,6 +7,7 @@
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Extension\ThemeSettingsProvider;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
@@ -16,7 +17,7 @@ use Drupal\Core\Url;
 function dkan_base_theme_preprocess_page(array &$variables): void {
   $variables['dbt_search'] = dkan_base_theme_header_search();
   // The site logo (theme setting or logo.svg) for the footer wordmark.
-  $variables['dbt_logo'] = theme_get_setting('logo.url') ?: NULL;
+  $variables['dbt_logo'] = \Drupal::service(ThemeSettingsProvider::class)->getSetting('logo.url') ?: NULL;
   // Tagged on the page, not only on the form, so a page cached while the
   // search path was empty or invalid is invalidated when it is corrected.
   // Both the active theme's and the base theme's settings are read.
@@ -33,9 +34,10 @@ function dkan_base_theme_preprocess_page(array &$variables): void {
  * base theme's here. An empty string is a saved value and hides the form.
  */
 function dkan_base_theme_search_path(?string $theme = NULL): string {
-  $path = theme_get_setting('catalog_search_path', $theme);
+  $settings = \Drupal::service(ThemeSettingsProvider::class);
+  $path = $settings->getSetting('catalog_search_path', $theme);
   if ($path === NULL && $theme !== 'dkan_base_theme') {
-    $path = theme_get_setting('catalog_search_path', 'dkan_base_theme');
+    $path = $settings->getSetting('catalog_search_path', 'dkan_base_theme');
   }
   return trim((string) $path);
 }
