@@ -49,6 +49,8 @@
   --dbt-container-max: 75rem;
   --dbt-sidebar-width: 18rem;
   --dbt-control-height: 2.5rem;
+  /* Search field icon, used as a mask: only its shape matters. */
+  --dbt-icon-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='7' cy='7' r='4.5'/%3E%3Cpath d='M10.5 10.5L14 14'/%3E%3C/svg%3E");
   /* Inner gap of the focus ring; the outline draws the ring itself. */
   --dbt-focus-ring: 0 0 0 2px var(--dbt-color-surface);
 
